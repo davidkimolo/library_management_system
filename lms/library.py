@@ -33,6 +33,19 @@ class Librarian(Library):
     def payment (self):
         """ this will pay for books """ 
         pass
+
+class Books_database(Library):
+    """ This is a child class of the Library class """
+    def __init__(self, location, librarian_id):
+        """ initializing attributes of the Library class """
+        super().__init__(location, librarian_id)
+        self.book_title = ""
+        self.book_author = ""
+        self.book_id = ""
+
+    def update (self):
+        """ this updates the books """
+        pass
     
 
     
