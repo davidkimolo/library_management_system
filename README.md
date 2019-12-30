@@ -6,9 +6,9 @@ This is a little program i have written in python to show relationships in a lib
 
 ## Objectives
 - Have the main Library class 
-- Have a sub class called Librarian whos' parent class is the library class
+- Have a child class called Librarian whos' parent class is the library class
 - have a child class called Books_database 
-- Have a patron Parent class
+- Have a Patron parent class
 - Have a child class called Patron_record
 - Have a Vendor class
 
