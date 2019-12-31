@@ -17,8 +17,10 @@ class Librarian(Library):
         librarian_id = ""
     
     def issue_status(self):
-        """ this shows all the books issues to people(s) """ 
-        pass 
+        """ this shows all the books issued to people(s) """ 
+        self.total_number_of_books = 416
+        print(f"The total number of issued books is: {self.total_number_of_books}")
+
     
     def search_book(self):
         """ this searches for a book """
@@ -31,7 +33,7 @@ class Librarian(Library):
         """ this will issue a book """
         pass
     def payment (self):
-        """ this will pay for books """ 
+        """ this will check the payments """ 
         pass
 
 # Boos_database class
