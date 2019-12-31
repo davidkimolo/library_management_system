@@ -15,26 +15,28 @@ class Librarian(Library):
         super().__init__(location, librarian_id)
         """ initializing attributes of the Librarian child class """
         self.name = ""
-        librarian_id = ""
-    
+        self.librarian_id = ""
+        self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
+        self.verified_members = []
+
+    # issue status
     def issue_status(self):
         """ this shows all the books issued to people(s) """ 
-        self.total_number_of_books = 416
+        self.total_number_of_books = len(self.availabale_books)
         print(f"The total number of issued books is: {self.total_number_of_books}")
 
-    
+    #search book
     def search_book(self, check_book):
         """ this searches for a book """
-        self.availabale_book = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
-        if check_book in self.availabale_book:
+        if check_book in self.availabale_books:
             print(f"{check_book}: is available")
         else:
             print(f"{check_book}: is not available")
 
+    #verify member
     def verify_member(self, verify_member):
         """ this will verify a member """
         self.unverified_members = ["David", "Kimolo", "Mwikya"]
-        self.verified_members = []
 
         if verify_member in self.unverified_members:
             self.verified_members.append(verify_member)
@@ -45,15 +47,16 @@ class Librarian(Library):
             for member in self.unverified_members:
                 print(f"->. {member}")
 
+    #issue book
     def issue_book(self, issue_book):
         """ this will issue a book if it is available"""
-        self.availabale_book = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
-        if issue_book in self.availabale_book:
+        if issue_book in self.availabale_books:
             print(f"{issue_book}: has been issued")
+            self.availabale_books.remove(issue_book)
         else:
             print(f"{issue_book}: was not found!")
 
-        
+    # payment 
     def payment (self):
         """ this will check the payments """ 
         pass
