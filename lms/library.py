@@ -31,7 +31,9 @@ class Librarian(Library):
         if check_book in self.availabale_books:
             print(f"{check_book}: is available")
         else:
-            print(f"{check_book}: is not available")
+            print(f"{check_book}: is not available! This are the available book(s)")
+            for book in self.availabale_books:
+                print(f"-> {book}")
 
     #verify member
     def verify_member(self, verify_member):
@@ -43,7 +45,7 @@ class Librarian(Library):
             self.unverified_members.remove(verify_member)
             print(f"{verify_member}: has been verified")
         else:
-            print(f"{verify_member}: was not found! This are the unverified members: ")
+            print(f"{verify_member}: was not found! This are the unverified member(s): ")
             for member in self.unverified_members:
                 print(f"->. {member}")
 
@@ -54,7 +56,10 @@ class Librarian(Library):
             print(f"{issue_book}: has been issued")
             self.availabale_books.remove(issue_book)
         else:
-            print(f"{issue_book}: was not found!")
+            print(f"{issue_book}: was not found! This are the available book(s): ")
+            for book in self.availabale_books:
+                print(f"-> {book}")
+
 
     # payment 
     def payment (self):
