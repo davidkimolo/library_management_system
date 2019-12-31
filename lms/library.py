@@ -5,6 +5,7 @@ class Library:
         """ this are the attributes of the Library class """
         self.location = location
         self.librarian_id = librarian_id
+        
 
 # Librarian child class
 class Librarian(Library):
@@ -44,14 +45,20 @@ class Librarian(Library):
             for member in self.unverified_members:
                 print(f"->. {member}")
 
-    def issue_book(self):
-        """ this will issue a book """
-        pass
+    def issue_book(self, issue_book):
+        """ this will issue a book if it is available"""
+        self.availabale_book = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
+        if issue_book in self.availabale_book:
+            print(f"{issue_book}: has been issued")
+        else:
+            print(f"{issue_book}: was not found!")
+
+        
     def payment (self):
         """ this will check the payments """ 
         pass
 
-# Boos_database class
+# Books_database class
 class Books_database(Library):
     """ This is a child class of the Library class """
     def __init__(self, location, librarian_id):

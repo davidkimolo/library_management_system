@@ -8,6 +8,7 @@ print("MENU")
 print(" 1. Librarian \n 2. Patron \n 3. Vendor")
 choice = int(input("Select who you are (choose a number): "))
 
+# Librarian choice 
 
 if choice == 1:
     print(" 1. Check issued books \n 2. Search for a book \n 3. Verify a member \n 4. Issue a book \n 5. Check payments ")
@@ -27,6 +28,11 @@ if choice == 1:
         verify_member = input ("Enter a member to verify: ")
         logged_in_user.verify_member(verify_member)
 
+    elif librarian_choice_one == 4:
+        issue_book = input("Enter the book you want to issue: ")
+        logged_in_user.issue_book(issue_book)
+
+    
 elif choice == 2:
     print("What would you like to do? :")
     
