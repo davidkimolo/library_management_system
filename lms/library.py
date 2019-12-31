@@ -22,9 +22,14 @@ class Librarian(Library):
         print(f"The total number of issued books is: {self.total_number_of_books}")
 
     
-    def search_book(self):
+    def search_book(self, check_book):
         """ this searches for a book """
-        pass
+        self.availabale_book = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
+        if check_book in self.availabale_book:
+            print(f"{check_book}: is available")
+        else:
+            print(f"{check_book}: is not available")
+
     def verify_member(self):
         """ this will verify a member """
         pass
