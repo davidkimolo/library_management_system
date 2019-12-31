@@ -18,6 +18,7 @@ class Librarian(Library):
         self.librarian_id = ""
         self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
         self.verified_members = []
+        self.payments = [12.5, 34.9, 98, 31]
 
     # issue status
     def issue_status(self):
@@ -64,7 +65,10 @@ class Librarian(Library):
     # payment 
     def payment (self):
         """ this will check the payments """ 
-        pass
+        print(f"The payments are: ")
+        for pay in self.payments:
+            print(f"-> {pay}")
+        print(f"Total number of payment is {sum(self.payments)}")
 
 # Books_database class
 class Books_database(Library):

@@ -31,11 +31,14 @@ if choice == 1:
     elif librarian_choice_one == 4:
         issue_book = input("Enter the book you want to issue: ")
         logged_in_user.issue_book(issue_book)
+    elif librarian_choice_one == 5:
+        logged_in_user.payment()
 
-    
+# Patron Choice            
 elif choice == 2:
     print("What would you like to do? :")
-    
+
+# Vendor Choice    
 elif choice == 3:
     print("What would you like to do? :")
 
