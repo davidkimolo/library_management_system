@@ -23,7 +23,10 @@ if choice == 1:
         check_book = input("Enter the book you want to check: ")
         logged_in_user.search_book(check_book)
 
-        
+    elif librarian_choice_one == 3:
+        verify_member = input ("Enter a member to verify: ")
+        logged_in_user.verify_member(verify_member)
+
 elif choice == 2:
     print("What would you like to do? :")
     

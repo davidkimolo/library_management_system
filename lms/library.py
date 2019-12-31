@@ -30,10 +30,20 @@ class Librarian(Library):
         else:
             print(f"{check_book}: is not available")
 
-    def verify_member(self):
+    def verify_member(self, verify_member):
         """ this will verify a member """
-        pass
-    
+        self.unverified_members = ["David", "Kimolo", "Mwikya"]
+        self.verified_members = []
+
+        if verify_member in self.unverified_members:
+            self.verified_members.append(verify_member)
+            self.unverified_members.remove(verify_member)
+            print(f"{verify_member}: has been verified")
+        else:
+            print(f"{verify_member}: was not found! This are the unverified members: ")
+            for member in self.unverified_members:
+                print(f"->. {member}")
+
     def issue_book(self):
         """ this will issue a book """
         pass
