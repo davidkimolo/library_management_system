@@ -17,10 +17,11 @@ class Librarian(Library):
         """ initializing attributes of the Librarian child class """
         self.name = ""
         self.librarian_id = ""
-        self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
+        self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ] #placeholders
         self.verified_members = []
         self.payments = [12.5, 34.9, 98, 31]
         self.requested_book = []
+        self.total_payments  = sum(self.payments)
 
     # issue status
     def issue_status(self):
@@ -70,7 +71,7 @@ class Librarian(Library):
         print(f"The payments are: ")
         for pay in self.payments:
             print(f"-> {pay}")
-        print(f"Total number of payment is {sum(self.payments)}")
+        print (f"Total number of payment is {self.total_payments}")
 
 # Books_database class
 class Books_database(Librarian):

@@ -33,10 +33,26 @@ class Patron:
         self.librarian_instance.requested_book.append(self.book_request)
         print(f"Your request for  {self.book_request} has been sent.")
     
+
     def pay_fine(self):
         """ this will make the patron be able to pay fines """
-        pass
-
+        self.librarian_location = input("Enter Librarian location: ")
+        self.librarian_id = input("Enter librarian id: ")
+        self.pay_owned_fine = libr(self.librarian_location, self.librarian_id)
+        
+        self.payment_answer = input(f" Are you sure you want to pay {self.pay_owned_fine.total_payments} ? 'y' | 'n' ")
+        self.payment_answer = self.payment_answer.lower()
+        
+        if self.payment_answer == "y":
+            self.payment_amount = int(input("Enter the amount you want to pay: "))
+            if self.payment_amount <= self.pay_owned_fine.total_payments:
+                self.balance = self.pay_owned_fine.total_payments - self.payment_amount
+                print("Thank you for paying! Your balance is: {}".format(self.balance))
+            if self.payment_amount > self.pay_owned_fine.total_payments:
+                print(f"The amount you are paying can not be above: {self.pay_owned_fine.total_payments}") 
+        else:
+            print("Please pay your fines ")
+ 
 # Patron_record child class 
 class Patron_record(Patron):
     """ this is a child class of the parent Patron """
@@ -52,4 +68,5 @@ class Patron_record(Patron):
         self.maximum_number_limit = max_no_limit
         self.phone_number = phone_no
         self.fines_owed = fines_owed
+
 

@@ -48,10 +48,9 @@ elif choice == 2:
     elif patron_choice == 2:
         logged_in_patron.request()
     elif patron_choice == 3:
-        pass
+        logged_in_patron.pay_fine()
     else:
         print("You have entered an invalid choice!")
-
 
 # Vendor Choice    
 elif choice == 3:
