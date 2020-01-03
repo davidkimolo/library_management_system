@@ -37,7 +37,7 @@ if choice == 1:
 
 # Patron Choice            
 elif choice == 2:
-    print(" 1. search a book \n 2. Request a book \n 3. Pay fine \n 4. Retrive user \n 5. Increase books issued")
+    print(" 1. search a book \n 2. Request a book \n 3. Pay fine \n 4. Retrive user \n 5. Increase books issued \n 6. Decrease books")
     patron_choice  = int(input("Enter what you want to do: "))
     patron_name = input("Enter patron name: ")
     patron_email = input("Enter patron email: ")
@@ -57,6 +57,9 @@ elif choice == 2:
     elif patron_choice == 5:
         logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
         logged_in_patron_record.increse_book_issued()
+    elif patron_choice == 6:
+        logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+        logged_in_patron_record.decrease_books_issued()
     else:
         print("You have entered an invalid choice!")
 

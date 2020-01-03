@@ -85,10 +85,15 @@ class Patron_record(Patron):
         else:
             print("Please enter a valid number")
     
+    def decrease_books_issued(self):
+        self.remove_books = int(input("How many books do you want to remove: "))
+        if self.remove_books <= self.number_of_books_issued and self.remove_books != 0:
+            self.remaining_books = self.number_of_books_issued - self.remove_books
+            print("You have removed {} books. Remaining books are {}".format(self.remove_books, self.remaining_books))
+        else:
+            print(f"Please enter a number that is not 0 or above the current number of books which is {self.number_of_books_issued}")
 
 
-david = Patron_record("david","sdhj", 123)
-david.retrive_member("12345")
 
 
 
