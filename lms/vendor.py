@@ -35,6 +35,13 @@ class Vendor:
 
     def payment_details(self):
         """ this shows the payment details where the funds will go """
-        pass
+        self.bank_name = input("Enter bank name: ")
+        self.account_number = int(input("Enter account number: "))
+        self.branch_location = input("Enter branch location: ")
+
+        print("Payment will be made to")
+        print(f"Account number:\t {self.account_number}")
+        print(f"Bank name:\t {self.bank_name}")
+        print(f"Bank branch:\t {self.branch_location}")
     
 
