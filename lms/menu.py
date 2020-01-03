@@ -65,7 +65,18 @@ elif choice == 2:
 
 # Vendor Choice    
 elif choice == 3:
-    print("What would you like to do? :")
+    print(" 1. To search for a book \n 2. Supply books \n 3. Payment details")
+    vendor_choice  = int(input("Enter what you want to do: "))
+    vendor_instance = vnd.Vendor()
+    
+    if vendor_choice == 1:
+        vendor_instance.search()
+    elif vendor_choice == 2:
+        vendor_instance.supply_book()
+    elif vendor_choice == 3:
+        vendor_instance.payment_details()
+    else:
+        print("Please enter the corrent number option")
 
 else:
     print("Please enter a valid choice. Exiting program ...")
