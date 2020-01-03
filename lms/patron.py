@@ -56,17 +56,39 @@ class Patron:
 # Patron_record child class 
 class Patron_record(Patron):
     """ this is a child class of the parent Patron """
-    def __init__(self, name, email, patron_id, book_type, date_of_membership, no_of_books_issued, max_no_limit, phone_no, fines_owed):
+    def __init__(self, name, email, patron_id):
         super().__init__(name, email, patron_id)
-        """ this are thr attributes of the child class Pareon_record """
+        """ this are the attributes of the child class Pareon_record """
         self.patron_id = patron_id
         self.name  = name
         self.email = email
-        self.book_type = book_type
-        self.date_of_membership = date_of_membership
-        self.number_of_books_issued = no_of_books_issued
-        self.maximum_number_limit = max_no_limit
-        self.phone_number = phone_no
-        self.fines_owed = fines_owed
+        self.book_type = ""
+        self.date_of_membership = ""
+        self.number_of_books_issued = 12
+        self.maximum_number_limit = 100
+        self.phone_number = ["12345", "23456","34567"]
+        self.fines_owed = ""
+
+    def retrive_member(self, number):
+        if number in self.phone_number:
+            print("User in the database") 
+        else:
+            print("User is not available")
+
+    def increse_book_issued(self):
+        self.add_more_books = int(input("How many more books do you want to add: "))
+        if self.number_of_books_issued + self.add_more_books < self.maximum_number_limit:
+            self.number_of_books_issued += self.add_more_books
+            print("You now have {} books".format(self.number_of_books_issued))
+        elif self.number_of_books_issued + self.add_more_books > self.maximum_number_limit:
+            print("You can not add more than {} books. Total number of books so far is {}".format(self.maximum_number_limit, self.number_of_books_issued))
+        else:
+            print("Please enter a valid number")
+    
+
+
+david = Patron_record("david","sdhj", 123)
+david.retrive_member("12345")
+
 
 
