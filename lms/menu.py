@@ -1,7 +1,7 @@
 # import relevant files
 import vendor as vnd 
-import patron as ptr 
 import library as lbr 
+from patron import Patron as ptr
 
 # The menu
 print("MENU")
@@ -36,7 +36,22 @@ if choice == 1:
 
 # Patron Choice            
 elif choice == 2:
-    print("What would you like to do? :")
+    print(" 1. search a book \n 2. Request a book \n 3. Pay fine")
+    patron_choice  = int(input("Enter what you want to do: "))
+    patron_name = input("Enter patron name: ")
+    patron_email = input("Enter patron email: ")
+    patron_id = input("Enter patron Id: ")
+    logged_in_patron = ptr(patron_name, patron_email, patron_email)
+
+    if patron_choice == 1:
+        logged_in_patron.search()
+    elif patron_choice == 2:
+        logged_in_patron.request()
+    elif patron_choice == 3:
+        pass
+    else:
+        print("You have entered an invalid choice!")
+
 
 # Vendor Choice    
 elif choice == 3:

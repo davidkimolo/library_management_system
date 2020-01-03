@@ -1,8 +1,8 @@
 # imports
-from library import Library
-from library import Librarian as lbr
+from library import Librarian as libr
 
 # Patron class
+
 class Patron:
     """ this is the Patron class """
     def __init__(self, name, email, patron_id):
@@ -20,13 +20,18 @@ class Patron:
             self.librarian_location = input("Enter Librarian location: ")
             self.librarian_id = input("Enter librarian id: ")
             self.patron_book = input("Enter the title of the book you want to search: ")
-            self.patron_book_result = lbr(self.librarian_location, self.librarian_id)
+            self.patron_book_result = libr(self.librarian_location, self.librarian_id)
             self.patron_book_result.search_book(self.patron_book)
             self.patron_book_result
         
     def request(self):
         """ this enables the patron to see book requests """
-        pass
+        self.librarian_location = input("Enter Librarian location: ")
+        self.librarian_id = input("Enter librarian id: ")
+        self.book_request = input("Enter the book you want to request: ")
+        self.librarian_instance = libr(self.librarian_location, self.librarian_id)
+        self.librarian_instance.requested_book.append(self.book_request)
+        print(f"Your request for  {self.book_request} has been sent.")
     
     def pay_fine(self):
         """ this will make the patron be able to pay fines """
@@ -48,6 +53,3 @@ class Patron_record(Patron):
         self.phone_number = phone_no
         self.fines_owed = fines_owed
 
-
-david = Patron("david", "mwikya", 1234)
-david.search()

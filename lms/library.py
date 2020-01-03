@@ -1,4 +1,5 @@
 # Parent Library class
+
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -19,6 +20,7 @@ class Librarian(Library):
         self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ]
         self.verified_members = []
         self.payments = [12.5, 34.9, 98, 31]
+        self.requested_book = []
 
     # issue status
     def issue_status(self):
