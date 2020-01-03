@@ -1,3 +1,7 @@
+# imports
+from library import Library
+from library import Librarian as lbr
+
 # Patron class
 class Patron:
     """ this is the Patron class """
@@ -9,8 +13,17 @@ class Patron:
 
     def search(self):
         """ this will enable the patron search a book """
-        pass
-
+        print("What do you want to do?: ")
+        self.patron_search = input(" press 's' to search for a book:  \n press 'n' to see how many book are there: ")
+        self.patron_search = self.patron_search.lower()
+        if self.patron_search == "s":
+            self.librarian_location = input("Enter Librarian location: ")
+            self.librarian_id = input("Enter librarian id: ")
+            self.patron_book = input("Enter the title of the book you want to search: ")
+            self.patron_book_result = lbr(self.librarian_location, self.librarian_id)
+            self.patron_book_result.search_book(self.patron_book)
+            self.patron_book_result
+        
     def request(self):
         """ this enables the patron to see book requests """
         pass
@@ -35,3 +48,6 @@ class Patron_record(Patron):
         self.phone_number = phone_no
         self.fines_owed = fines_owed
 
+
+david = Patron("david", "mwikya", 1234)
+david.search()
