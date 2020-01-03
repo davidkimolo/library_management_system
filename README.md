@@ -14,6 +14,10 @@ This is a little program i have written in python to show relationships in a lib
 
 ## Goals 
 - Using the above structure someone can interact with the library system on specific areas.
+
+## To-do
+- Save data to text files
+- Save data to database
   
 
 **Email** 
