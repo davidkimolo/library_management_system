@@ -110,8 +110,6 @@ class Books_database(Librarian):
         else:
             print("Book not found")
         
-david = Books_database("Kenya", 123)
-david.update()
 
     
 
