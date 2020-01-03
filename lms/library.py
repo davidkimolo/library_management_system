@@ -71,7 +71,7 @@ class Librarian(Library):
         print(f"Total number of payment is {sum(self.payments)}")
 
 # Books_database class
-class Books_database(Library):
+class Books_database(Librarian):
     """ This is a child class of the Library class """
     def __init__(self, location, librarian_id):
         """ initializing attributes of the Library class """
@@ -79,10 +79,40 @@ class Books_database(Library):
         self.book_title = ""
         self.book_author = ""
         self.book_id = ""
-
+    # To-do compare with other book lists
     def update (self):
         """ this updates the books """
-        pass
+        self.bookname = input("Write which book you want to update: ")
+        if self.bookname in self.availabale_books:
+            print("Book found.")
+            print("press 'd' to delete the book")
+            print("press 'a' to update authour")
+            print("press 't' to update title")
+            print("press 'i' to update book ID")
+            self.update_choice = input("what do you want to do?: ")
+            self.update_choice = self.update_choice.lower()
+
+            if self.update_choice == "d":
+                self.availabale_books.remove(self.bookname)
+                print(f"{self.bookname} has been deleted")
+            elif self.update_choice == "a":
+                self.new_book_author = input("Who is the book authour: ")
+                self.book_author = self.new_book_author
+                print("The new book author of {} is {}".format(self.bookname, self.book_author))
+            elif self.update_choice == "t":
+                self.new_book_title = input("Enter the new book title: ")
+                self.book_title = self.new_book_title
+                print("The book title of {} has update to {}".format(self.bookname,self.new_book_title))
+            elif self.update_choice == "i":
+                self.new_book_id = input("Enter new book ID: ")
+                self.book_id = self.new_book_id
+                print("The book {} has been update to {} ID number".format(self.bookname, self.book_id))
+        else:
+            print("Book not found")
+        
+david = Books_database("Kenya", 123)
+david.update()
+
     
 
     
