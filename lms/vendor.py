@@ -23,7 +23,15 @@ class Vendor:
 
     def supply_book(self):
         """ This shows the books that need to be supplied as requested by patron"""
-        pass
+        self.library_location = input("Enter the library location: ")
+        self.librarian_id = int(input("Enter the librarian ID: "))
+        self.supply_to = librr(self.library_location, self.librarian_id)
+        # to do check more conditions
+        self.number_of_supply_books = int(input("How many books are you supplying: "))
+        if self.number_of_supply_books <= len(self.book_names):
+            print(f"{self.number_of_supply_books} have been send to {self.supply_to.location} location to the librarian with the ID {self.librarian_id}") 
+        else:
+            print(f"Please enter books that are not higher than {len(self.book_names)}")
 
     def payment_details(self):
         """ this shows the payment details where the funds will go """
