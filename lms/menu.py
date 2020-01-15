@@ -14,8 +14,6 @@ while (True):
         sys.exit(0)
         print("you have not entered a numerical input! \nplease enter a number")
         
-        
-
     # Librarian choice 
 
     if choice == 1:
@@ -31,7 +29,6 @@ while (True):
                 librarian_id = input("Enter your librarian ID: ")
                 logged_in_user = lbr.Librarian(librarian_location, librarian_id)
             
-
                 if librarian_choice_one == 1:
                     logged_in_user.issue_status()
 
@@ -52,30 +49,38 @@ while (True):
     # Patron Choice            
     elif choice == 2:
         print(" 1. search a book \n 2. Request a book \n 3. Pay fine \n 4. Retrive user \n 5. Increase books issued \n 6. Decrease books")
-        patron_choice  = int(input("Enter what you want to do: "))
-        patron_name = input("Enter patron name: ")
-        patron_email = input("Enter patron email: ")
-        patron_id = int(input("Enter patron Id: "))
-        logged_in_patron = ptr(patron_name, patron_email, patron_id)
-
-        if patron_choice == 1:
-            logged_in_patron.search()
-        elif patron_choice == 2:
-            logged_in_patron.request()
-        elif patron_choice == 3:
-            logged_in_patron.pay_fine()
-        elif patron_choice == 4:
-            logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-            phone_number = input("Enter member phone number to search: ")
-            logged_in_patron_record.retrive_member(phone_number)
-        elif patron_choice == 5:
-            logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-            logged_in_patron_record.increse_book_issued()
-        elif patron_choice == 6:
-            logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-            logged_in_patron_record.decrease_books_issued()
+        try:
+            patron_choice  = int(input("Enter what you want to do: "))
+        except ValueError:
+            print("you have not entered a numerical input! \nplease enter a number")
         else:
-            print("You have entered an invalid choice!")
+            patron_name = input("Enter patron name: ")
+            patron_email = input("Enter patron email: ")
+            try:
+                patron_id = int(input("Enter patron Id: "))
+            except ValueError:
+                print("you have not entered a numerical input! \nplease enter a number")
+            else:
+                logged_in_patron = ptr(patron_name, patron_email, patron_id)
+
+                if patron_choice == 1:
+                    logged_in_patron.search()
+                elif patron_choice == 2:
+                    logged_in_patron.request()
+                elif patron_choice == 3:
+                    logged_in_patron.pay_fine()
+                elif patron_choice == 4:
+                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                    phone_number = input("Enter member phone number to search: ")
+                    logged_in_patron_record.retrive_member(phone_number)
+                elif patron_choice == 5:
+                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                    logged_in_patron_record.increse_book_issued()
+                elif patron_choice == 6:
+                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                    logged_in_patron_record.decrease_books_issued()
+                else:
+                    print("You have entered an invalid choice!")
 
     # Vendor Choice    
     elif choice == 3:
