@@ -16,6 +16,7 @@ This is a little program i have written in python to show relationships in a lib
 - Using the above structure someone can interact with the library system on specific areas.
 
 ## To-do
+- Error handling 
 - Save data to text files
 - Save data to database
   
