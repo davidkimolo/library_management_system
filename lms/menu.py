@@ -84,6 +84,7 @@ while (True):
                     except ValueError:
                         print("Error! Please enter a numerical input.")
                     else:
+                        phone_number = str(phone_number)
                         logged_in_patron_record.retrive_member(phone_number)
                 elif patron_choice == 5:
                     logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
