@@ -66,14 +66,22 @@ class Patron_record(Patron):
         self.date_of_membership = ""
         self.number_of_books_issued = 12
         self.maximum_number_limit = 100
+        # To-do This should be entered by the necessary person
         self.phone_number = ["12345", "23456","34567"]
+        self.phone_number_length = len(self.phone_number[0])
         self.fines_owed = ""
 
     def retrive_member(self, number):
-        if number in self.phone_number:
-            print("User in the database") 
+        # Check the length of the phone number
+        converted_number = (str(number))
+        if len(converted_number) != 5:
+            print("The phone number cannot be less or more than {}".format(self.phone_number_length))
         else:
-            print("User is not available")
+            if number in self.phone_number:
+                # To-do print the user real identity instead of just "user"
+                print("User in the database") 
+            else:
+                print("User is not available")
 
     def increse_book_issued(self):
         self.add_more_books = int(input("How many more books do you want to add: "))
