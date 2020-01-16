@@ -18,11 +18,30 @@ class Patron:
         self.patron_search = self.patron_search.lower()
         if self.patron_search == "s":
             self.librarian_location = input("Enter Librarian location: ")
-            self.librarian_id = input("Enter librarian id: ")
-            self.patron_book = input("Enter the title of the book you want to search: ")
-            self.patron_book_result = libr(self.librarian_location, self.librarian_id)
-            self.patron_book_result.search_book(self.patron_book)
-            self.patron_book_result
+            try:
+                self.librarian_id = int(input("Enter librarian id: "))
+            except ValueError:
+                print("Error! PLease enter a numerical input.")
+            else:
+                self.patron_book = input("Enter the title of the book you want to search: ")
+                self.patron_book_result = libr(self.librarian_location, self.librarian_id)
+                self.patron_book_result.search_book(self.patron_book)
+                self.patron_book_result
+
+        elif self.patron_search == "n":
+            # see how many books are there
+            self.librarian_location = input("Enter librarian location: ")
+            try:
+                self.librarian_id = int(input("Enter librarian ID: "))
+            except ValueError:
+                print("Error! enter a numerical input")
+            else:
+                self.available_books = libr(self.librarian_location, self.librarian_id)
+                print("This are the available books. total is ({})".format(len(self.available_books.availabale_books)))
+                for available_book in self.available_books.availabale_books:
+                    print(f"-> {available_book}")
+        else:
+            print("Please enter either 's' or 'n'")
         
     def request(self):
         """ this enables the patron to see book requests """
