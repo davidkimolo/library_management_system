@@ -19,18 +19,28 @@ class Librarian(Library):
         """ initializing attributes of the Librarian child class """
         self.name = ""
         self.librarian_id = ""
-        with open(available_books) as all_books:
-            self.availabale_books  = json.load(all_books)
         self.verified_members = []
         self.payments = [12.5, 34.9, 98, 31]
         self.requested_book = []
         self.total_payments  = sum(self.payments)
+        try:
+            with open(available_books) as all_books:
+                self.availabale_books  = json.load(all_books)
+        except FileNotFoundError:
+            print(f"The file '{available_books}' was not found")
+        else:
+            pass
+
 
     # issue status
     def issue_status(self):
         """ this shows all the books issued to people(s) """ 
-        self.total_number_of_books = len(self.availabale_books)
-        print(f"The total number of issued books is: {self.total_number_of_books}")
+        try:
+            self.total_number_of_books = len(self.availabale_books)
+        except AttributeError:
+            print(f"There is an attribute error. Tip: Maybe the file '{available_books}' is missing")
+        else:
+            print(f"The total number of issued books is: {self.total_number_of_books}")
 
     #search book
     def search_book(self, check_book):
