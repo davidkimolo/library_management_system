@@ -1,5 +1,7 @@
 # Parent Library class
+import json 
 
+available_books  = "files/available_books.json"
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -17,7 +19,8 @@ class Librarian(Library):
         """ initializing attributes of the Librarian child class """
         self.name = ""
         self.librarian_id = ""
-        self.availabale_books  = ["The Great Gatsby", "Beloved", "Invisible Man", "On The road" ] #placeholders
+        with open(available_books) as all_books:
+            self.availabale_books  = json.load(all_books)
         self.verified_members = []
         self.payments = [12.5, 34.9, 98, 31]
         self.requested_book = []
