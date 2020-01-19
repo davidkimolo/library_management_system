@@ -69,13 +69,16 @@ class Librarian(Library):
     #issue book
     def issue_book(self, issue_book):
         """ this will issue a book if it is available"""
-        if issue_book in self.availabale_books:
-            print(f"{issue_book}: has been issued")
-            self.availabale_books.remove(issue_book)
-        else:
-            print(f"{issue_book}: was not found! This are the available book(s): ")
-            for book in self.availabale_books:
-                print(f"-> {book}")
+        
+        with open(available_books, "w") as remove_book:
+            if issue_book in self.availabale_books:
+                print(f"{issue_book}: has been issued")
+                self.availabale_books.remove(issue_book)
+                json.dump(self.availabale_books, remove_book)
+            else:
+                print(f"{issue_book}: was not found! This are the available book(s): ")
+                for book in self.availabale_books:
+                    print(f"-> {book}")
 
 
     # payment 
