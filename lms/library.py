@@ -60,13 +60,15 @@ class Librarian(Library):
         """ this will verify a member """
         self.unverified_members = "files/unverified_members.json"
         self.actual_member = []
-        self.actual_member += verify_member
         with open(self.verified_members) as the_verified_members:
             all_verified_members = json.load(the_verified_members)
+        with open(self.unverified_members) as the_unverified_members:
+            all_unverified_members = json.load(the_unverified_members)
 
-        if verify_member in self.unverified_members:
+        if verify_member in all_unverified_members:
             with open(self.verified_members,"w") as verify:
                 self.actual_member += all_verified_members
+                self.actual_member.append(verify_member)
                 json.dump(self.actual_member, verify)
 
                 #self.verified_members.append(verify_member)
