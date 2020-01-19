@@ -19,10 +19,13 @@ class Librarian(Library):
         """ initializing attributes of the Librarian child class """
         self.name = ""
         self.librarian_id = ""
-        self.verified_members = []
+        self.verified_members = "files/verified_members.json"
         self.payments = [12.5, 34.9, 98, 31]
         self.requested_book = []
         self.total_payments  = sum(self.payments)
+        self.issue_books = []
+        self.issued_book = []
+        self.issue_books += self.issued_book
         try:
             with open(available_books) as all_books:
                 self.availabale_books  = json.load(all_books)
@@ -55,16 +58,26 @@ class Librarian(Library):
     #verify member
     def verify_member(self, verify_member):
         """ this will verify a member """
-        self.unverified_members = ["David", "Kimolo", "Mwikya"]
+        self.unverified_members = "files/unverified_members.json"
+        self.actual_member = []
+        self.actual_member += verify_member
+        with open(self.verified_members) as the_verified_members:
+            all_verified_members = json.load(the_verified_members)
 
         if verify_member in self.unverified_members:
-            self.verified_members.append(verify_member)
-            self.unverified_members.remove(verify_member)
-            print(f"{verify_member}: has been verified")
+            with open(self.verified_members,"w") as verify:
+                self.actual_member += all_verified_members
+                json.dump(self.actual_member, verify)
+
+                #self.verified_members.append(verify_member)
+                #self.unverified_members.remove(verify_member)
+                print(f"{verify_member}: has been verified")
         else:
             print(f"{verify_member}: was not found! This are the unverified member(s): ")
-            for member in self.unverified_members:
-                print(f"->. {member}")
+            with open(self.unverified_members) as not_found:
+                unverified_members  = json.load(not_found)
+                for member in unverified_members:
+                    print(f"->. {member}")
 
     #issue book
     def issue_book(self, issue_book):
@@ -73,13 +86,27 @@ class Librarian(Library):
         with open(available_books, "w") as remove_book:
             if issue_book in self.availabale_books:
                 print(f"{issue_book}: has been issued")
-                self.availabale_books.remove(issue_book)
+                self.issued_book = self.availabale_books.remove(issue_book)
                 json.dump(self.availabale_books, remove_book)
             else:
                 print(f"{issue_book}: was not found! This are the available book(s): ")
                 for book in self.availabale_books:
                     print(f"-> {book}")
-
+    # check issued books
+    """
+    def check_issued_books (self):
+         ## This function checks all the issued books and returns the number of issued books
+        all_issued_books = "files/issued_books.json"
+        add_a_book = []
+        with open(all_issued_books) as issued_bks:
+            current_issued_books = json.load(issued_bks)
+        
+        with open(all_issued_books, "w") as add_new_book:
+            add_a_book.append(self.issued_book)
+            current_issued_books += add_a_book
+            json.dump(current_issued_books, add_new_book)
+    """
+            
 
     # payment 
     def payment (self):
@@ -133,4 +160,3 @@ class Books_database(Librarian):
     
 
     
-
