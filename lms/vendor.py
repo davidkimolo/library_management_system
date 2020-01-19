@@ -13,14 +13,18 @@ class Vendor:
     def search(self):
         """ This searches for books """
         self.book_name = input("Enter a book you want to search: ")
+        self.book_name = self.book_name.lower()
         with open(self.book_names) as all_available_books:
             all_the_books = json.load(all_available_books)
-            if self.book_name in all_the_books:
+            for a_book in all_the_books:
+                a_book = a_book.lower()
+            if self.book_name == a_book:
                 print("{} is available".format(self.book_name))
             else:
-                print("{} is not available".format(self.book_name))
+                print("{} is not available!".format(self.book_name))
                 print("This are the available books: ")
                 for self.books in all_the_books:
+                    self.books = self.books.lower()
                     print("-> {}".format(self.books))
 
     def supply_book(self):
