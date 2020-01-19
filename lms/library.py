@@ -61,30 +61,37 @@ class Librarian(Library):
         self.unverified_members = "files/unverified_members.json"
         self.actual_member = []
         self.unactual_member = []
-        with open(self.verified_members) as the_verified_members:
-            all_verified_members = json.load(the_verified_members)
-        with open(self.unverified_members) as the_unverified_members:
-            all_unverified_members = json.load(the_unverified_members)
+        try:
+            with open(self.verified_members) as the_verified_members:
+                all_verified_members = json.load(the_verified_members)
+        except FileNotFoundError:
+            print(f"The file '{self.verified_members}' was not found!")
 
-        if verify_member in all_unverified_members:
-            with open(self.verified_members,"w") as verify:
-                self.actual_member += all_verified_members
-                self.actual_member.append(verify_member)
-                json.dump(self.actual_member, verify)
-
-                with open(self.unverified_members, "w") as unverified:
-                    all_unverified_members.remove(verify_member)
-                    json.dump(all_unverified_members, unverified)
-
-
-                #all_unverified_members.remove(verify_member)
-                print(f"{verify_member}: has been verified")
+        try:
+            with open(self.unverified_members) as the_unverified_members:
+                all_unverified_members = json.load(the_unverified_members)
+        except FileNotFoundError:
+            print(f"The file '{self.unverified_members}' was not found!")
         else:
-            print(f"{verify_member}: was not found! This are the unverified member(s): ")
-            with open(self.unverified_members) as not_found:
-                unverified_members  = json.load(not_found)
-                for member in unverified_members:
-                    print(f"->. {member}")
+            if verify_member in all_unverified_members:
+                with open(self.verified_members,"w") as verify:
+                    self.actual_member += all_verified_members
+                    self.actual_member.append(verify_member)
+                    json.dump(self.actual_member, verify)
+
+                    with open(self.unverified_members, "w") as unverified:
+                        all_unverified_members.remove(verify_member)
+                        json.dump(all_unverified_members, unverified)
+
+
+                    #all_unverified_members.remove(verify_member)
+                    print(f"{verify_member}: has been verified")
+            else:
+                print(f"{verify_member}: was not found! This are the unverified member(s): ")
+                with open(self.unverified_members) as not_found:
+                    unverified_members  = json.load(not_found)
+                    for member in unverified_members:
+                        print(f"->. {member}")
 
     #issue book
     def issue_book(self, issue_book):
