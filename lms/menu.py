@@ -16,7 +16,7 @@ while (True):
     # Librarian choice 
 
     if choice == 1:
-        print(" 1. Check issued books \n 2. Search for a book \n 3. Verify a member \n 4. Issue a book \n 5. Check payments ")
+        print(" 1. Available books \n 2. Search for a book \n 3. Verify a member \n 4. Issue a book \n 5. Check payments ")
         while (True):
             # Handling Value Error
             try:
@@ -35,7 +35,7 @@ while (True):
                     logged_in_user = lbr.Librarian(librarian_location, librarian_id)
             
                     if librarian_choice_one == 1:
-                        logged_in_user.issue_status()
+                        logged_in_user.available_books()
 
                     elif librarian_choice_one == 2:
                         check_book = input("Enter the book you want to check: ")

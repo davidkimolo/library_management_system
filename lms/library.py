@@ -2,6 +2,7 @@
 import json 
 
 available_books  = "files/available_books.json"
+the_issued_books = "files/issued_books.json"
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -36,14 +37,14 @@ class Librarian(Library):
 
 
     # issue status
-    def issue_status(self):
+    def available_books(self):
         """ this shows all the books issued to people(s) """ 
         try:
             self.total_number_of_books = len(self.availabale_books)
         except AttributeError:
             print(f"There is an attribute error. Tip: Maybe the file '{available_books}' is missing")
         else:
-            print(f"The total number of issued books is: {self.total_number_of_books}")
+            print(f"The total number of available books is: {self.total_number_of_books}")
 
     #search book
     def search_book(self, check_book):
@@ -96,12 +97,20 @@ class Librarian(Library):
     #issue book
     def issue_book(self, issue_book):
         """ this will issue a book if it is available"""
-        
+        the_added_issued_books = []
         with open(available_books, "w") as remove_book:
             if issue_book in self.availabale_books:
                 print(f"{issue_book}: has been issued")
                 self.issued_book = self.availabale_books.remove(issue_book)
                 json.dump(self.availabale_books, remove_book)
+                
+                with open(the_issued_books) as all_issued_books:
+                    view_issued_books = json.load(all_issued_books)
+
+                with open(the_issued_books, "w") as add_issued_book:
+                    the_added_issued_books.append(self.issued_book)
+                    the_added_issued_books += view_issued_books
+                    json.dump(the_added_issued_books, add_issued_book)
             else:
                 print(f"{issue_book}: was not found! This are the available book(s): ")
                 for book in self.availabale_books:
