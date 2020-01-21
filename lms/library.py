@@ -106,6 +106,7 @@ class Librarian(Library):
                 
             else:
                 print(f"{issue_book}: was not found! This are the available book(s): ")
+                json.dump(self.availabale_books, remove_book)
                 for book in self.availabale_books:
                     print(f"-> {book}")
 
@@ -117,21 +118,7 @@ class Librarian(Library):
             the_added_issued_books += view_issued_books
             json.dump(the_added_issued_books, add_issued_book)
     # check issued books
-    """
-    def check_issued_books (self):
-         ## This function checks all the issued books and returns the number of issued books
-        all_issued_books = "files/issued_books.json"
-        add_a_book = []
-        with open(all_issued_books) as issued_bks:
-            current_issued_books = json.load(issued_bks)
-        
-        with open(all_issued_books, "w") as add_new_book:
-            add_a_book.append(self.issued_book)
-            current_issued_books += add_a_book
-            json.dump(current_issued_books, add_new_book)
-    """
-            
-
+    
     # payment 
     def payment (self):
         """ this will check the payments """ 
