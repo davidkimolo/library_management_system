@@ -1,7 +1,7 @@
 # Parent Library class
 import json 
 
-available_books  = "files/available_books.json"
+available_books  = "file/available_books.json"
 the_issued_books = "files/issued_books.json"
 class Library:
     """ This is the parent Library class """
@@ -98,27 +98,29 @@ class Librarian(Library):
     def issue_book(self, issue_book):
         """ this will issue a book if it is available"""
         the_added_issued_books = []
-        with open(available_books, "w") as remove_book:
-            if issue_book in self.availabale_books:
-                print(f"{issue_book}: has been issued")
-                self.issued_book = self.availabale_books.remove(issue_book)
-                json.dump(self.availabale_books, remove_book)
-                
-            else:
-                print(f"{issue_book}: was not found! This are the available book(s): ")
-                json.dump(self.availabale_books, remove_book)
-                for book in self.availabale_books:
-                    print(f"-> {book}")
+        try:
+            with open(available_books, "w") as remove_book:
+                if issue_book in self.availabale_books:
+                    print(f"{issue_book}: has been issued")
+                    self.issued_book = self.availabale_books.remove(issue_book)
+                    json.dump(self.availabale_books, remove_book) 
+                else:
+                    print(f"{issue_book}: was not found! This are the available book(s): ")
+                    json.dump(self.availabale_books, remove_book)
+                    for book in self.availabale_books:
+                        print(f"-> {book}")
 
-        with open(the_issued_books) as all_issued_books:
-            view_issued_books = json.load(all_issued_books)
+            with open(the_issued_books) as all_issued_books:
+                view_issued_books = json.load(all_issued_books)
 
-        with open(the_issued_books, "w") as add_issued_book:
-            the_added_issued_books.append(issue_book)
-            the_added_issued_books += view_issued_books
-            json.dump(the_added_issued_books, add_issued_book)
+            with open(the_issued_books, "w") as add_issued_book:
+                the_added_issued_books.append(issue_book)
+                the_added_issued_books += view_issued_books
+                json.dump(the_added_issued_books, add_issued_book)
+        except FileNotFoundError:
+            print(f"The file(s) '{available_books}' or '{the_issued_books}' was not found!")
     # check issued books
-    
+
     # payment 
     def payment (self):
         """ this will check the payments """ 
