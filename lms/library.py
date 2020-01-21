@@ -104,17 +104,18 @@ class Librarian(Library):
                 self.issued_book = self.availabale_books.remove(issue_book)
                 json.dump(self.availabale_books, remove_book)
                 
-                with open(the_issued_books) as all_issued_books:
-                    view_issued_books = json.load(all_issued_books)
-
-                with open(the_issued_books, "w") as add_issued_book:
-                    the_added_issued_books.append(self.issued_book)
-                    the_added_issued_books += view_issued_books
-                    json.dump(the_added_issued_books, add_issued_book)
             else:
                 print(f"{issue_book}: was not found! This are the available book(s): ")
                 for book in self.availabale_books:
                     print(f"-> {book}")
+
+        with open(the_issued_books) as all_issued_books:
+            view_issued_books = json.load(all_issued_books)
+
+        with open(the_issued_books, "w") as add_issued_book:
+            the_added_issued_books.append(issue_book)
+            the_added_issued_books += view_issued_books
+            json.dump(the_added_issued_books, add_issued_book)
     # check issued books
     """
     def check_issued_books (self):
