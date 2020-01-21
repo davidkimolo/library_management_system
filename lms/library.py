@@ -1,7 +1,7 @@
 # Parent Library class
 import json 
 
-available_books  = "file/available_books.json"
+available_books  = "files/available_books.json"
 the_issued_books = "files/issued_books.json"
 class Library:
     """ This is the parent Library class """
@@ -114,9 +114,12 @@ class Librarian(Library):
                 view_issued_books = json.load(all_issued_books)
 
             with open(the_issued_books, "w") as add_issued_book:
-                the_added_issued_books.append(issue_book)
-                the_added_issued_books += view_issued_books
-                json.dump(the_added_issued_books, add_issued_book)
+                if issue_book in self.availabale_books: 
+                    the_added_issued_books.append(issue_book)
+                    the_added_issued_books += view_issued_books
+                    json.dump(the_added_issued_books, add_issued_book)
+                else:
+                    json.dump(view_issued_books, add_issued_book)
         except FileNotFoundError:
             print(f"The file(s) '{available_books}' or '{the_issued_books}' was not found!")
     # check issued books
