@@ -160,7 +160,7 @@ class Books_database(Librarian):
                 self.availabale_books.remove(self.bookname)
                 print(f"{self.bookname} has been deleted")
             elif self.update_choice == "a":
-                self.new_book_author = input("Who is the book authour: ")
+                self.new_book_author = input("Who is the book author: ")
                 self.book_author = self.new_book_author
                 print("The new book author of {} is {}".format(self.bookname, self.book_author))
             elif self.update_choice == "t":

@@ -7,6 +7,7 @@ from patron import Patron_record as ptrr
 import super_user as sup
 
 librarian_files = "files/librarian.json"
+issues = "files/issues.json"
 
 
 while (True):
@@ -37,6 +38,16 @@ while (True):
                     print(f"You have logged in as '{librarian_login_info[0]}' of id '{librarian_login_info[1]}'")
                 else:
                     print("Librarian does not exist, sending error to super user...")
+                    
+                    all_issues = []
+                    with open(issues) as non_librarian:
+                        no_librarian = json.load(non_librarian)
+                    with open(issues, "a") as create_librarian:
+                        issue_message = "Librarian does not exist. Please create one."
+                        all_issues.append(issue_message)
+                        all_issues += no_librarian
+                        json.dump(all_issues, create_librarian)      
+                    break
         
                 if librarian_choice_one == 1:
                     logged_in_user.available_books()
