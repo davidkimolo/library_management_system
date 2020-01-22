@@ -69,24 +69,43 @@ class Librarian(Library):
             super_username = input("Enter username: ")
             super_password = getpass.getpass("Enter password: ")
             if super_username ==  super_data[0] and super_password == super_data[1]:
-                # create a libaraian
-                print("Creating a new librarian")
-                librarian_data = []
-                with open(librarian_files) as lib_files:
-                    all_lib_files = json.load(lib_files)
-                if len(all_lib_files) > 2 or len(all_lib_files) < 2:
-                    #creates the librarian and stores the info
-                    create_librarian_location = input("Enter Librarian location: ")
-                    create_librarian_id = input ("Enter librarian id: ")
-                    with open(librarian_files, "w")  as the_lib_files:
-                        librarian_data.append(create_librarian_location)
-                        librarian_data.append(create_librarian_id)
-                        json.dump(librarian_data, the_lib_files)
-                elif len(all_lib_files) == 2:
-                    print("Librarian already exists!")
-                # edit librarian details
-                # remove / delete librarian
-                # change password
+                # Super User Menu
+                print (" 1. Create a librarian \n 2. edit librarian details \n 3. delete librarian \n 4. Change password")
+                super_user_choice = int(input("Enter what action you want to perform: "))
+                if super_user_choice == 1:
+
+                    # create a libaraian
+                    print("Creating a new librarian")
+                    librarian_data = []
+                    with open(librarian_files) as lib_files:
+                        all_lib_files = json.load(lib_files)
+                    if len(all_lib_files) > 2 or len(all_lib_files) < 2:
+                        #creates the librarian and stores the info
+                        create_librarian_location = input("Enter Librarian location: ")
+                        create_librarian_id = input ("Enter librarian id: ")
+                        with open(librarian_files, "w")  as the_lib_files:
+                            librarian_data.append(create_librarian_location)
+                            librarian_data.append(create_librarian_id)
+                            json.dump(librarian_data, the_lib_files)
+                    elif len(all_lib_files) == 2:
+                        print("Librarian already exists!")
+                elif super_user_choice == 2:
+                    # edit librarian details
+                        librarian_data = []
+                        create_librarian_location = input("Enter new librarian location: ")
+                        create_librarian_id = input ("Enter new librarian id: ")
+                        with open(librarian_files, "r+")  as the_lib_files:
+                            #for all_data in the_lib_files:
+                                #the_lib_files.remove(all_data)
+                            librarian_data.append(create_librarian_location)
+                            librarian_data.append(create_librarian_id)
+                            json.dump(librarian_data, the_lib_files)
+                elif super_user_choice == 3:
+                    pass
+                    # remove / delete librarian
+                elif super_user_choice == 4:
+                    pass
+                    # change password
                 print("Success")
             else:
                 print("Failed")
