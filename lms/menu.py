@@ -1,10 +1,13 @@
 # import relevant files
-import sys 
+import json 
 import vendor as vnd 
 import library as lbr 
 from patron import Patron as ptr
 from patron import Patron_record as ptrr
 import super_user as sup
+
+librarian_files = "files/librarian.json"
+
 
 while (True):
     # The menu
@@ -27,31 +30,30 @@ while (True):
                 print("you have not entered a numerical input! \nplease enter a number")
                 break
             else:
-                librarian_location = input("Enter your location: ")
-                # handling ValueError
-                try:
-                    librarian_id = int(input("Enter your librarian ID: "))
-                except ValueError:
-                    print("Error! Please enter a numerical input")
-                else: 
-                    logged_in_user = lbr.Librarian(librarian_location, librarian_id)
-            
-                    if librarian_choice_one == 1:
-                        logged_in_user.available_books()
+                with open(librarian_files) as librarian_details:
+                    librarian_login_info = json.load(librarian_details)
+                if len(librarian_login_info) == 2: 
+                    logged_in_user = lbr.Librarian(librarian_login_info[0], librarian_login_info[1])
+                    print(f"You have logged in as '{librarian_login_info[0]}' of id '{librarian_login_info[1]}'")
+                else:
+                    print("Librarian does not exist, sending error to super user...")
+        
+                if librarian_choice_one == 1:
+                    logged_in_user.available_books()
 
-                    elif librarian_choice_one == 2:
-                        check_book = input("Enter the book you want to check: ")
-                        logged_in_user.search_book(check_book)
+                elif librarian_choice_one == 2:
+                    check_book = input("Enter the book you want to check: ")
+                    logged_in_user.search_book(check_book)
 
-                    elif librarian_choice_one == 3:
-                        verify_member = input ("Enter a member to verify: ")
-                        logged_in_user.verify_member(verify_member)
+                elif librarian_choice_one == 3:
+                    verify_member = input ("Enter a member to verify: ")
+                    logged_in_user.verify_member(verify_member)
 
-                    elif librarian_choice_one == 4:
-                        issue_book = input("Enter the book you want to issue: ")
-                        logged_in_user.issue_book(issue_book)
-                    elif librarian_choice_one == 5:
-                        logged_in_user.payment()
+                elif librarian_choice_one == 4:
+                    issue_book = input("Enter the book you want to issue: ")
+                    logged_in_user.issue_book(issue_book)
+                elif librarian_choice_one == 5:
+                    logged_in_user.payment()
 
     # Patron Choice            
     elif choice == 2:
