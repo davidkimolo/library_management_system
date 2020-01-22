@@ -4,7 +4,7 @@ import vendor as vnd
 import library as lbr 
 from patron import Patron as ptr
 from patron import Patron_record as ptrr
-import super_user
+import super_user as sup
 
 while (True):
     # The menu
@@ -117,7 +117,9 @@ while (True):
             else:
                 print("Please enter the corrent number option")
 
-
+    elif choice == 4:
+        print(sup.super_user_login())
+        
     else:
         print("Please enter a valid choice. Exiting program ...")
 
