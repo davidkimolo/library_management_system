@@ -123,9 +123,18 @@ class Librarian(Library):
                             print("There are no librarian available. You can add one.")
 
                 elif super_user_choice == 4:
-                    pass
                     # change password
-                print("Success")
+                    old_password = getpass.getpass("Enter the old password: ")
+                    new_password = getpass.getpass("Enter your new password: ")
+                    confirm_password = getpass.getpass("Confirm password: ")
+                    with open(super_login) as the_password:
+                        all_info = json.load(the_password)
+                    
+                    with open(super_login,"w") as change_password:
+                        if old_password == all_info[1] and new_password == confirm_password:
+                            all_info[1] = new_password
+                            json.dump(all_info, change_password)
+                        print("You have successfully changed your password.")
             else:
                 print("Failed")
             
