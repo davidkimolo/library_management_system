@@ -42,13 +42,17 @@ while (True):
                     all_issues = []
                     with open(issues) as non_librarian:
                         no_librarian = json.load(non_librarian)
-                    with open(issues, "a") as create_librarian:
-                        issue_message = "Librarian does not exist. Please create one."
-                        all_issues.append(issue_message)
-                        all_issues += no_librarian
-                        json.dump(all_issues, create_librarian)      
-                    break
-        
+                    issue_message = "Librarian does not exist. Please create one."
+                    if issue_message in no_librarian:
+                        print("The issue had already been submitted")
+                        break
+                    else:
+                        with open(issues, "a") as create_librarian:
+                            all_issues.append(issue_message)
+                            all_issues += no_librarian
+                            json.dump(all_issues, create_librarian)      
+                        break
+            
                 if librarian_choice_one == 1:
                     logged_in_user.available_books()
 
