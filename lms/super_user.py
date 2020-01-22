@@ -6,6 +6,8 @@ available_books  = "files/available_books.json"
 the_issued_books = "files/issued_books.json"
 super_login = "files/super_user.json"
 librarian_files = "files/librarian.json"
+issues = "files/issues.json"
+
 
 def super_user_login ():
     """ This is will register / login a super user """
@@ -38,7 +40,7 @@ def super_user_login ():
         super_password = getpass.getpass("Enter password: ")
         if super_username ==  super_data[0] and super_password == super_data[1]:
             # Super User Menu
-            print (" 1. Create a librarian \n 2. Edit librarian details \n 3. Delete librarian \n 4. Change password")
+            print (" 1. Create a librarian \n 2. Edit librarian details \n 3. Delete librarian \n 4. Change password \n 5. Check issues")
             super_user_choice = int(input("Enter what action you want to perform: "))
             if super_user_choice == 1:
 
@@ -107,6 +109,15 @@ def super_user_login ():
                         all_info[1] = new_password
                         json.dump(all_info, change_password)
                     print("You have successfully changed your password.")
+
+            # Check issues
+            elif super_user_choice == 5:
+                with open(issues) as fix_issues:
+                    all_the_issues = json.load(fix_issues)
+                print("This are the issues that have been submitted.")
+                for issue in all_the_issues:
+                    print(f"-> {issue}")
+
         else:
             print("Failed")
 
