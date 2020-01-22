@@ -49,17 +49,17 @@ class Librarian(Library):
             set_super_password = input ("Enter new super user password: ")
             set_super_password_again = input ("Enter new super user password again: ")
             super_input = []
-
-            if len(set_super_username)  >= 6:
-                if set_super_password == set_super_password_again:
+            number_of_characters = 6
+            if len(set_super_username)  >= number_of_characters:
+                if set_super_password == set_super_password_again and len(set_super_password) >= number_of_characters:
                     with open(super_login, "w") as sp_logged_in:
                         super_input.append(set_super_username)
                         super_input.append(set_super_password)
                         json.dump(super_input, sp_logged_in)
                 else:
-                    print("Password does not match!")
+                    print("Password does not match or password is less than {} characters!".format(number_of_characters))
             else:
-                print("The length of your username cannot be less than 6")
+                print("The length of your username cannot be less than {}".format(number_of_characters))
 
 
         elif len(super_data) == 2:
