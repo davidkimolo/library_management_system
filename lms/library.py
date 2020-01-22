@@ -89,6 +89,7 @@ class Librarian(Library):
                             json.dump(librarian_data, the_lib_files)
                     elif len(all_lib_files) == 2:
                         print("Librarian already exists!")
+
                 elif super_user_choice == 2:
                     # edit librarian details
                         librarian_data = []
@@ -100,19 +101,26 @@ class Librarian(Library):
                             librarian_data.append(create_librarian_location)
                             librarian_data.append(create_librarian_id)
                             json.dump(librarian_data, the_lib_files)
+
                 elif super_user_choice == 3:
                     # remove / delete librarian
-                    librarian_data = []
-                    count = 0 
-                    with open(librarian_files) as remove_librarian:
-                        all_librarian = json.load(remove_librarian)
                     
-                    while (count < len(all_librarian)):
-                        with open(librarian_files,"w") as removed_librarian:
-                                for available_librarian in all_librarian:
-                                    all_librarian.remove(available_librarian)
-                                json.dump(librarian_data, removed_librarian)
-                                count += 1
+                        librarian_data = []
+                        count = 0 
+                        with open(librarian_files) as remove_librarian:
+                            all_librarian = json.load(remove_librarian)
+                        if len(all_librarian) == 2:
+                            delete_choice   = input("Are you sure you want to delete librarian?: 'y' | 'n': ")
+                            delete_choice = delete_choice.lower()
+                            if delete_choice == "y":
+                                while (count < len(all_librarian)):
+                                    with open(librarian_files,"w") as removed_librarian:
+                                            for available_librarian in all_librarian:
+                                                all_librarian.remove(available_librarian)
+                                            json.dump(librarian_data, removed_librarian)
+                                            count += 1
+                        elif len(all_librarian) == 0:
+                            print("There are no librarian available. You can add one.")
 
                 elif super_user_choice == 4:
                     pass
