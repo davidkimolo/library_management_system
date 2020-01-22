@@ -3,6 +3,7 @@ import json
 
 available_books  = "files/available_books.json"
 the_issued_books = "files/issued_books.json"
+super_login = "files/super_user.json"
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -35,6 +36,44 @@ class Librarian(Library):
         else:
             pass
 
+    # Librarian Super user
+    def super_user_login (self):
+        """ This is will register / login a super user """
+        with open(super_login) as sp_login:
+            super_data = json.load(sp_login)
+
+        if len(super_data) < 2 :
+            # register super user
+            print("There is no super user please register super user")
+            set_super_username = input("Enter new super user username: ")
+            set_super_password = input ("Enter new super user password: ")
+            set_super_password_again = input ("Enter new super user password again: ")
+            super_input = []
+
+            if len(set_super_username)  >= 6:
+                if set_super_password == set_super_password_again:
+                    with open(super_login, "w") as sp_logged_in:
+                        super_input.append(set_super_username)
+                        super_input.append(set_super_password)
+                        json.dump(super_input, sp_logged_in)
+                else:
+                    print("Password does not match!")
+            else:
+                print("The length of your username cannot be less than 6")
+
+
+        elif len(super_data) == 2:
+            super_username = input("Enter username: ")
+            super_password = input("Enter password: ")
+            if super_username ==  super_data[0] and super_password == super_data[1]:
+                # create a libaraian
+                # edit librarian details
+                # remove / delete librarian
+                # change password
+                print("Success")
+            else:
+                print("Failed")
+            
 
     # issue status
     def available_books(self):
@@ -176,3 +215,5 @@ class Books_database(Librarian):
     
 
     
+person = Librarian("Nairobi", 1234)
+print(person.super_user_login())

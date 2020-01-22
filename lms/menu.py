@@ -7,7 +7,7 @@ from patron import Patron_record as ptrr
 while (True):
     # The menu
     print("MENU")
-    print(" 1. Librarian \n 2. Patron \n 3. Vendor")
+    print(" 1. Librarian \n 2. Patron \n 3. Vendor \n 4. Super User")
     try:
         choice = int(input("Select who you are (choose a number): "))
     except ValueError:
