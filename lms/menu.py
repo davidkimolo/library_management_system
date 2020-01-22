@@ -4,6 +4,8 @@ import vendor as vnd
 import library as lbr 
 from patron import Patron as ptr
 from patron import Patron_record as ptrr
+import super_user
+
 while (True):
     # The menu
     print("MENU")
@@ -16,7 +18,7 @@ while (True):
     # Librarian choice 
 
     if choice == 1:
-        print(" 1. Available books \n 2. Search for a book \n 3. Verify a member \n 4. Issue a book \n 5. Check payments ")
+        print(" 1. Check Available books \n 2. Search for a book \n 3. Verify a member \n 4. Issue a book \n 5. Check payments ")
         while (True):
             # Handling Value Error
             try:
@@ -114,6 +116,7 @@ while (True):
                 vendor_instance.payment_details()
             else:
                 print("Please enter the corrent number option")
+
 
     else:
         print("Please enter a valid choice. Exiting program ...")
