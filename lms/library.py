@@ -1,9 +1,11 @@
 # Parent Library class
 import json 
+import getpass
 
 available_books  = "files/available_books.json"
 the_issued_books = "files/issued_books.json"
 super_login = "files/super_user.json"
+librarian_files = "files/librarian.json"
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -46,8 +48,8 @@ class Librarian(Library):
             # register super user
             print("There is no super user please register super user")
             set_super_username = input("Enter new super user username: ")
-            set_super_password = input ("Enter new super user password: ")
-            set_super_password_again = input ("Enter new super user password again: ")
+            set_super_password = getpass.getpass("Enter new super user password: ")
+            set_super_password_again = getpass.getpass("Enter new super user password again: ")
             super_input = []
             number_of_characters = 6
             if len(set_super_username)  >= number_of_characters:
@@ -63,10 +65,25 @@ class Librarian(Library):
 
 
         elif len(super_data) == 2:
+            # logging in 
             super_username = input("Enter username: ")
-            super_password = input("Enter password: ")
+            super_password = getpass.getpass("Enter password: ")
             if super_username ==  super_data[0] and super_password == super_data[1]:
                 # create a libaraian
+                print("Creating a new librarian")
+                librarian_data = []
+                with open(librarian_files) as lib_files:
+                    all_lib_files = json.load(lib_files)
+                if len(all_lib_files) > 2 or len(all_lib_files) < 2:
+                    #creates the librarian and stores the info
+                    create_librarian_location = input("Enter Librarian location: ")
+                    create_librarian_id = input ("Enter librarian id: ")
+                    with open(librarian_files, "w")  as the_lib_files:
+                        librarian_data.append(create_librarian_location)
+                        librarian_data.append(create_librarian_id)
+                        json.dump(librarian_data, the_lib_files)
+                elif len(all_lib_files) == 2:
+                    print("Librarian already exists!")
                 # edit librarian details
                 # remove / delete librarian
                 # change password
