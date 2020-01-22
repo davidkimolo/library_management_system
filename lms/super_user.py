@@ -8,6 +8,8 @@ super_login = "files/super_user.json"
 librarian_files = "files/librarian.json"
 issues = "files/issues.json"
 
+no_librarian_issue = "Librarian does not exist. Please create one."
+
 
 def super_user_login ():
     """ This is will register / login a super user """
@@ -40,7 +42,7 @@ def super_user_login ():
         super_password = getpass.getpass("Enter password: ")
         if super_username ==  super_data[0] and super_password == super_data[1]:
             # Super User Menu
-            print (" 1. Create a librarian \n 2. Edit librarian details \n 3. Delete librarian \n 4. Change password \n 5. Check issues")
+            print (" 1. Create a librarian \n 2. Add/Edit librarian details \n 3. Delete librarian \n 4. Change password \n 5. Check issues")
             super_user_choice = int(input("Enter what action you want to perform: "))
             if super_user_choice == 1:
 
@@ -57,6 +59,7 @@ def super_user_login ():
                         librarian_data.append(create_librarian_location)
                         librarian_data.append(create_librarian_id)
                         json.dump(librarian_data, the_lib_files)
+                        print("You have successfully created a librarian.")
                 elif len(all_lib_files) == 2:
                     print("Librarian already exists!")
 
@@ -74,6 +77,12 @@ def super_user_login ():
                         librarian_data.append(create_librarian_location)
                         librarian_data.append(create_librarian_id)
                         json.dump(librarian_data, the_lib_files)
+                        with open(issues) as missing_librarian:
+                            none_librarian = json.load(missing_librarian)
+                        if no_librarian_issue in none_librarian:
+                            none_librarian.remove(no_librarian_issue)
+                        with open(issues, "w") as remove_issues:
+                            json.dump(none_librarian, remove_issues)
                         print("Librarian details added successfully.")
 
             elif super_user_choice == 3:
@@ -93,6 +102,7 @@ def super_user_login ():
                                             all_librarian.remove(available_librarian)
                                         json.dump(librarian_data, removed_librarian)
                                         count += 1
+                                        print("You have successfully deleted a librarian.")
                     elif len(all_librarian) == 0:
                         print("There are no librarian available. You can add one.")
 
@@ -114,9 +124,12 @@ def super_user_login ():
             elif super_user_choice == 5:
                 with open(issues) as fix_issues:
                     all_the_issues = json.load(fix_issues)
-                print("This are the issues that have been submitted.")
-                for issue in all_the_issues:
-                    print(f"-> {issue}")
+                if len(all_the_issues) != 0:
+                    print("This are the issues that have been submitted.")
+                    for issue in all_the_issues:
+                        print(f"-> {issue}")
+                else:
+                    print("There are no issues.")
 
         else:
             print("Failed")
