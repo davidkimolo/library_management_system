@@ -101,8 +101,19 @@ class Librarian(Library):
                             librarian_data.append(create_librarian_id)
                             json.dump(librarian_data, the_lib_files)
                 elif super_user_choice == 3:
-                    pass
                     # remove / delete librarian
+                    librarian_data = []
+                    count = 0 
+                    with open(librarian_files) as remove_librarian:
+                        all_librarian = json.load(remove_librarian)
+                    
+                    while (count < len(all_librarian)):
+                        with open(librarian_files,"w") as removed_librarian:
+                                for available_librarian in all_librarian:
+                                    all_librarian.remove(available_librarian)
+                                json.dump(librarian_data, removed_librarian)
+                                count += 1
+
                 elif super_user_choice == 4:
                     pass
                     # change password
