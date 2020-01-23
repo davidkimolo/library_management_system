@@ -6,7 +6,7 @@ class Vendor:
     """ this is the Vendors class """
     def __init__(self):
         """ this are the attributes of the Vendor class """
-        self. book_names = "files/available_books.json" #placeholders
+        self. book_names = "files/available_books.json" 
         self.book_price = 0
         self.book_type = ""
     

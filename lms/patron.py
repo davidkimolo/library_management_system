@@ -1,8 +1,10 @@
 # imports
+import json
 from library import Librarian as libr
 
-# Patron class
+available_librarian = "files/librarian.json"
 
+# Patron class
 class Patron:
     """ this is the Patron class """
     def __init__(self, name, email, patron_id):
@@ -17,16 +19,20 @@ class Patron:
         self.patron_search = input(" press 's' to search for a book:  \n press 'n' to see how many book are there: ")
         self.patron_search = self.patron_search.lower()
         if self.patron_search == "s":
-            self.librarian_location = input("Enter Librarian location: ")
-            try:
-                self.librarian_id = int(input("Enter librarian id: "))
-            except ValueError:
-                print("Error! PLease enter a numerical input.")
-            else:
-                self.patron_book = input("Enter the title of the book you want to search: ")
-                self.patron_book_result = libr(self.librarian_location, self.librarian_id)
-                self.patron_book_result.search_book(self.patron_book)
-                self.patron_book_result
+            with open (available_librarian) as the_availabale_librarian:
+                the_librarian_details = json.load(the_availabale_librarian)
+            if len(the_librarian_details) == 2:
+                the_librarian_location = the_librarian_details[0]
+                the_librarian_id = the_librarian_details[1]
+                print(f"You are quering data from '{the_librarian_location}' of ID '{the_librarian_id}'.")
+
+            self.librarian_location = the_librarian_location
+            self.librarian_id = the_librarian_id
+            
+            self.patron_book = input("Enter the title of the book you want to search: ")
+            self.patron_book_result = libr(self.librarian_location, self.librarian_id)
+            self.patron_book_result.search_book(self.patron_book)
+            self.patron_book_result
 
         elif self.patron_search == "n":
             # see how many books are there
