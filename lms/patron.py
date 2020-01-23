@@ -3,6 +3,7 @@ import json
 from library import Librarian as libr
 
 available_librarian = "files/librarian.json"
+patron_files = "files/patron.json"
 
 # Patron class
 class Patron:
@@ -11,11 +12,12 @@ class Patron:
         """ this are the patron class attributes """
         self.name = name
         self.email = email
-        self. patron_id = patron_id
+        self.patron_id = patron_id
 
     def search(self):
         """ this will enable the patron search a book """
         print("What do you want to do?: ")
+        print(f"You are logged in as '{self.name}' email: '{self.email}' ID: '{self.patron_id}'")
         self.patron_search = input(" press 's' to search for a book:  \n press 'n' to see how many book are there: ")
         self.patron_search = self.patron_search.lower()
         if self.patron_search == "s":

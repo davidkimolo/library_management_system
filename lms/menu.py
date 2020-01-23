@@ -8,6 +8,7 @@ import super_user as sup
 
 librarian_files = "files/librarian.json"
 issues = "files/issues.json"
+patron_files = "files/patron.json"
 
 
 while (True):
@@ -72,6 +73,8 @@ while (True):
 
     # Patron Choice            
     elif choice == 2:
+        with open(patron_files) as load_patron:
+            the_patron = json.load(load_patron)
         print(" 1. search a book \n 2. Request a book \n 3. Pay fine \n 4. Retrive user \n 5. Increase books issued \n 6. Decrease books")
         # Handling ValueError
         try:
@@ -79,40 +82,35 @@ while (True):
         except ValueError:
             print("you have not entered a numerical input! \nplease enter a number")
         else:
-            patron_name = input("Enter patron name: ")
-            patron_email = input("Enter patron email: ")
+            patron_name = the_patron[0]
+            patron_email = the_patron[1]
+            patron_id = the_patron[2]
 
-            # handling ValueError
-            try:
-                patron_id = int(input("Enter patron Id: "))
-            except ValueError:
-                print("you have not entered a numerical input! \nplease enter a number")
-            else:
-                logged_in_patron = ptr(patron_name, patron_email, patron_id)
+            logged_in_patron = ptr(patron_name, patron_email, patron_id)
 
-                if patron_choice == 1:
-                    logged_in_patron.search()
-                elif patron_choice == 2:
-                    logged_in_patron.request()
-                elif patron_choice == 3:
-                    logged_in_patron.pay_fine()
-                elif patron_choice == 4:
-                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-                    try:
-                        phone_number = int(input("Enter member phone number to search: "))
-                    except ValueError:
-                        print("Error! Please enter a numerical input.")
-                    else:
-                        phone_number = str(phone_number)
-                        logged_in_patron_record.retrive_member(phone_number)
-                elif patron_choice == 5:
-                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-                    logged_in_patron_record.increse_book_issued()
-                elif patron_choice == 6:
-                    logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
-                    logged_in_patron_record.decrease_books_issued()
+            if patron_choice == 1:
+                logged_in_patron.search()
+            elif patron_choice == 2:
+                logged_in_patron.request()
+            elif patron_choice == 3:
+                logged_in_patron.pay_fine()
+            elif patron_choice == 4:
+                logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                try:
+                    phone_number = int(input("Enter member phone number to search: "))
+                except ValueError:
+                    print("Error! Please enter a numerical input.")
                 else:
-                    print("You have entered an invalid choice!")
+                    phone_number = str(phone_number)
+                    logged_in_patron_record.retrive_member(phone_number)
+            elif patron_choice == 5:
+                logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                logged_in_patron_record.increse_book_issued()
+            elif patron_choice == 6:
+                logged_in_patron_record = ptrr(patron_name, patron_email, patron_id)
+                logged_in_patron_record.decrease_books_issued()
+            else:
+                print("You have entered an invalid choice!")
 
     # Vendor Choice    
     elif choice == 3:
