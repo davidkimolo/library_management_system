@@ -7,6 +7,7 @@ the_issued_books = "files/issued_books.json"
 super_login = "files/super_user.json"
 librarian_files = "files/librarian.json"
 issues = "files/issues.json"
+patron_files = "files/patron.json"
 
 no_librarian_issue = "Librarian does not exist. Please create one."
 
@@ -42,7 +43,8 @@ def super_user_login ():
         super_password = getpass.getpass("Enter password: ")
         if super_username ==  super_data[0] and super_password == super_data[1]:
             # Super User Menu
-            print (" 1. Create a librarian \n 2. Add/Edit librarian details \n 3. Delete librarian \n 4. Change password \n 5. Check issues")
+            print (" 1. Create a librarian \n 2. Add/Edit librarian details")
+            print(" 3. Delete librarian \n 4. Add a patron \n  5. Change password \n 6. Check issues")
             super_user_choice = int(input("Enter what action you want to perform: "))
             if super_user_choice == 1:
 
@@ -105,8 +107,28 @@ def super_user_login ():
                                         print("You have successfully deleted a librarian.")
                     elif len(all_librarian) == 0:
                         print("There are no librarian available. You can add one.")
-
             elif super_user_choice == 4:
+                patron_data = []
+                with open(patron_files) as available_patron:
+                    check_patron = json.load(available_patron)
+                
+                if len(check_patron) != 3:
+                    #create a patron
+                    with open(patron_files, "w") as add_patron:
+                        patron_name = input("Enter a patron name: ")
+                        patron_data.append(patron_name)
+                        patron_email = input("Enter patron_email: ")
+                        patron_data.append(patron_email)
+                        patron_id = int(input("Enter patron ID: "))
+                        patron_data.append(patron_id)
+
+                        patron_data += check_patron
+                        json.dump(patron_data, add_patron)
+
+                elif len(check_patron) == 3:
+                    print("A patron already exists.")
+
+            elif super_user_choice == 5:
                 # change password
                 old_password = getpass.getpass("Enter the old password: ")
                 new_password = getpass.getpass("Enter your new password: ")
@@ -121,7 +143,7 @@ def super_user_login ():
                     print("You have successfully changed your password.")
 
             # Check issues
-            elif super_user_choice == 5:
+            elif super_user_choice == 6:
                 with open(issues) as fix_issues:
                     all_the_issues = json.load(fix_issues)
                 if len(all_the_issues) != 0:
