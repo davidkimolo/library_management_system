@@ -51,11 +51,18 @@ class Librarian(Library):
     #search book
     def search_book(self, check_book):
         """ this searches for a book """
-        if check_book in self.availabale_books:
+        check_book = check_book.lower()
+        librarian_sorted_books = []
+        with open(available_books) as check_the_books:
+            get_all_books = json.load(check_the_books)
+        for a_book in get_all_books:
+            a_book = a_book.lower()
+            librarian_sorted_books.append(a_book) 
+        if check_book in librarian_sorted_books:
             print(f"{check_book}: is available")
         else:
             print(f"{check_book}: is not available! This are the available book(s)")
-            for book in self.availabale_books:
+            for book in librarian_sorted_books:
                 print(f"-> {book}")
 
     #verify member
