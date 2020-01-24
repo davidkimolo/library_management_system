@@ -44,7 +44,8 @@ def super_user_login ():
         if super_username ==  super_data[0] and super_password == super_data[1]:
             # Super User Menu
             print (" 1. Create a librarian \n 2. Add/Edit librarian details")
-            print(" 3. Delete librarian \n 4. Add a patron \n  5. Change password \n 6. Check issues")
+            print(" 3. Delete librarian \n 4. Add a patron \n 5. edit patron details \n 6. remove patron")
+            print(" 7. Change password \n 8. Check issues")
             super_user_choice = int(input("Enter what action you want to perform: "))
             if super_user_choice == 1:
 
@@ -127,8 +128,29 @@ def super_user_login ():
 
                 elif len(check_patron) == 3:
                     print("A patron already exists.")
-
             elif super_user_choice == 5:
+                patron_data = []
+                with open(patron_files) as available_patron:
+                    check_patron = json.load(available_patron)
+                if len(check_patron) == 3:
+                    print("You are editing patron details")
+                    with open(patron_files, "w") as add_patron:
+                        patron_name = input("Enter a patron name: ")
+                        patron_data.append(patron_name)
+                        patron_email = input("Enter patron_email: ")
+                        patron_data.append(patron_email)
+                        patron_id = int(input("Enter patron ID: "))
+                        patron_data.append(patron_id)
+                        
+                        json.dump(patron_data, add_patron)
+                        print("You have editted patron details.")
+                else:
+                    print("Patron does not exit. TIP: Create a patron.")
+
+            elif super_user_choice == 6:
+                pass
+
+            elif super_user_choice == 7:
                 # change password
                 old_password = getpass.getpass("Enter the old password: ")
                 new_password = getpass.getpass("Enter your new password: ")
@@ -143,7 +165,7 @@ def super_user_login ():
                     print("You have successfully changed your password.")
 
             # Check issues
-            elif super_user_choice == 6:
+            elif super_user_choice == 8:
                 with open(issues) as fix_issues:
                     all_the_issues = json.load(fix_issues)
                 if len(all_the_issues) != 0:
