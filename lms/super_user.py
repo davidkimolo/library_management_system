@@ -62,6 +62,12 @@ def super_user_login ():
                         librarian_data.append(create_librarian_location)
                         librarian_data.append(create_librarian_id)
                         json.dump(librarian_data, the_lib_files)
+                        with open(issues) as missing_librarian:
+                            none_librarian = json.load(missing_librarian)
+                        if no_librarian_issue in none_librarian:
+                            none_librarian.remove(no_librarian_issue)
+                        with open(issues, "w") as remove_issues:
+                            json.dump(none_librarian, remove_issues)
                         print("You have successfully created a librarian.")
                 elif len(all_lib_files) == 2:
                     print("Librarian already exists!")
