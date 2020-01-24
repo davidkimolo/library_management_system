@@ -9,6 +9,7 @@ import super_user as sup
 librarian_files = "files/librarian.json"
 issues = "files/issues.json"
 patron_files = "files/patron.json"
+issues = "files/issues.json"
 
 
 while (True):
@@ -88,7 +89,14 @@ while (True):
                 patron_id = the_patron[2]
                 logged_in_patron = ptr(patron_name, patron_email, patron_id)
             else:
-                print("Patron does not exist!")
+                print("Patron does not exist! Submitting issue to super user.")
+                #add issue message to issues 
+                missing_patron_isssue = ["Patron does not exist. Please add patron."]
+                with open(issues) as check_issue:
+                    found_issue = json.load(check_issue)
+                with open(issues, "w") as missing_patron:
+                    missing_patron_isssue += found_issue
+                    json.dump(missing_patron_isssue, missing_patron)
                 break 
 
             if patron_choice == 1:
