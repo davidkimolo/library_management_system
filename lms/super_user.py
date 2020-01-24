@@ -10,7 +10,7 @@ issues = "files/issues.json"
 patron_files = "files/patron.json"
 
 no_librarian_issue = "Librarian does not exist. Please create one."
-
+no_patron_issue = "Patron does not exist. Please add patron."
 
 def super_user_login ():
     """ This is will register / login a super user """
@@ -131,6 +131,12 @@ def super_user_login ():
 
                         patron_data += check_patron
                         json.dump(patron_data, add_patron)
+                        with open(issues) as check_missing_patron:
+                            found_patron = json.load(check_missing_patron)
+                        if no_patron_issue in found_patron:
+                            with open(issues, "w") as all_patron_missing_issue:
+                                found_patron.remove(no_patron_issue)
+                                json.dump(found_patron, all_patron_missing_issue) 
 
                 elif len(check_patron) == 3:
                     print("A patron already exists.")
