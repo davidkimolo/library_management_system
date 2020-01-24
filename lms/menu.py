@@ -82,11 +82,14 @@ while (True):
         except ValueError:
             print("you have not entered a numerical input! \nplease enter a number")
         else:
-            patron_name = the_patron[0]
-            patron_email = the_patron[1]
-            patron_id = the_patron[2]
-
-            logged_in_patron = ptr(patron_name, patron_email, patron_id)
+            if len(the_patron) == 3:
+                patron_name = the_patron[0]
+                patron_email = the_patron[1]
+                patron_id = the_patron[2]
+                logged_in_patron = ptr(patron_name, patron_email, patron_id)
+            else:
+                print("Patron does not exist!")
+                break 
 
             if patron_choice == 1:
                 logged_in_patron.search()
