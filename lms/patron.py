@@ -29,13 +29,15 @@ class Patron:
                 the_librarian_id = the_librarian_details[1]
                 print(f"You are quering data from '{the_librarian_location}' of ID '{the_librarian_id}'.")
 
-            self.librarian_location = the_librarian_location
-            self.librarian_id = the_librarian_id
-            
-            self.patron_book = input("Enter the title of the book you want to search: ")
-            self.patron_book_result = libr(self.librarian_location, self.librarian_id)
-            self.patron_book_result.search_book(self.patron_book)
-            self.patron_book_result
+                self.librarian_location = the_librarian_location
+                self.librarian_id = the_librarian_id
+
+                self.patron_book = input("Enter the title of the book you want to search: ")
+                self.patron_book_result = libr(self.librarian_location, self.librarian_id)
+                self.patron_book_result.search_book(self.patron_book)
+                self.patron_book_result
+            else:
+                print("Librarian missing, cannot continue!")
 
         elif self.patron_search == "n":
             # see how many books are there
