@@ -49,7 +49,7 @@ while (True):
                         print("The issue had already been submitted")
                         break
                     else:
-                        with open(issues, "a") as create_librarian:
+                        with open(issues, "w") as create_librarian:
                             all_issues.append(issue_message)
                             all_issues += no_librarian
                             json.dump(all_issues, create_librarian)      
@@ -92,12 +92,18 @@ while (True):
                 print("Patron does not exist! Submitting issue to super user.")
                 #add issue message to issues 
                 missing_patron_isssue = ["Patron does not exist. Please add patron."]
-                with open(issues) as check_issue:
-                    found_issue = json.load(check_issue)
-                with open(issues, "w") as missing_patron:
-                    missing_patron_isssue += found_issue
-                    json.dump(missing_patron_isssue, missing_patron)
-                break 
+                with open (issues) as view_missing:
+                    if_missing = json.load(view_missing)
+                if missing_patron_isssue[0] in if_missing:
+                    print("The issue has already been submitted.")
+                    break
+                else:
+                    with open(issues) as check_issue:
+                        found_issue = json.load(check_issue)
+                    with open(issues, "w") as missing_patron:
+                        missing_patron_isssue += found_issue
+                        json.dump(missing_patron_isssue, missing_patron)
+                    break 
 
             if patron_choice == 1:
                 logged_in_patron.search()

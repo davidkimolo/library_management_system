@@ -190,7 +190,8 @@ def super_user_login ():
                 with open(issues) as fix_issues:
                     all_the_issues = json.load(fix_issues)
                 if len(all_the_issues) != 0:
-                    print("This are the issues that have been submitted.")
+                    number_of_issues = len(all_the_issues)
+                    print("This are the issues that have been submitted. Number of issues ({})".format(number_of_issues))
                     for issue in all_the_issues:
                         print(f"-> {issue}")
                 else:
