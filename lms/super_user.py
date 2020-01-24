@@ -129,6 +129,7 @@ def super_user_login ():
                 elif len(check_patron) == 3:
                     print("A patron already exists.")
             elif super_user_choice == 5:
+                # edit patron
                 patron_data = []
                 with open(patron_files) as available_patron:
                     check_patron = json.load(available_patron)
@@ -141,14 +142,22 @@ def super_user_login ():
                         patron_data.append(patron_email)
                         patron_id = int(input("Enter patron ID: "))
                         patron_data.append(patron_id)
-                        
+
                         json.dump(patron_data, add_patron)
                         print("You have editted patron details.")
                 else:
                     print("Patron does not exit. TIP: Create a patron.")
 
             elif super_user_choice == 6:
-                pass
+                # remove patron
+                patron_data = []
+                with open(patron_files) as available_patron:
+                    check_patron = json.load(available_patron)
+                if len(check_patron) > 0:
+                    with open(patron_files, "w") as remove_patron:
+                        json.dump(patron_data, remove_patron)
+                else:
+                    print("There is no patron. TIP: Add a patron")
 
             elif super_user_choice == 7:
                 # change password
