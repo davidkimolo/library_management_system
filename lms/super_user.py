@@ -8,6 +8,8 @@ super_login = "files/super_user.json"
 librarian_files = "files/librarian.json"
 issues = "files/issues.json"
 patron_files = "files/patron.json"
+vendor_files = "files/vendor.json"
+
 
 no_librarian_issue = "Librarian does not exist. Please create one."
 no_patron_issue = "Patron does not exist. Please add patron."
@@ -44,8 +46,9 @@ def super_user_login ():
         if super_username ==  super_data[0] and super_password == super_data[1]:
             # Super User Menu
             print (" 1. Create a librarian \n 2. Add/Edit librarian details")
-            print(" 3. Delete librarian \n 4. Add a patron \n 5. edit patron details \n 6. remove patron")
-            print(" 7. Change password \n 8. Check issues")
+            print(" 3. Remove librarian \n 4. Create a patron \n 5. edit patron details \n 6. remove patron")
+            print(" 7. Create vendor \n 8. Edit vendor \n 9. Remove vendor")
+            print(" 10. Change password \n 11. Check issues")
             super_user_choice = int(input("Enter what action you want to perform: "))
             if super_user_choice == 1:
 
@@ -170,8 +173,42 @@ def super_user_login ():
                         json.dump(patron_data, remove_patron)
                 else:
                     print("There is no patron. TIP: Add a patron")
-
             elif super_user_choice == 7:
+                # create a vendor
+                with open(vendor_files) as check_vendor:
+                    vendor_result = json.load(check_vendor)
+                    #check if vendor exists
+                if len(vendor_result) == 3:
+                    print("The vendor is already there")
+                elif len(vendor_result) < 3:
+                    # create vendor
+                    vendor_name = input("Enter vendor name: ")
+                    vendor_location = input("Enter vendor location: ")
+                    vendor_id = input("Enter vendor ID: ")
+                    vendor_data = []
+                    vendor_issue = "No vendor found. Please create a vendor."
+                    with open(vendor_files, "w") as new_vendor:
+                        vendor_data.append(vendor_name)
+                        vendor_data.append(vendor_location)
+                        vendor_data.append(vendor_id)
+                        vendor_data += vendor_result
+                        json.dump(vendor_data, new_vendor)
+                    with open(issues) as check_vendor_issue:
+                        the_vendor_issue = json.load(check_vendor_issue)
+                        # removing missing vendor issue
+                    if vendor_issue in the_vendor_issue:
+                        the_vendor_issue.remove(vendor_issue)
+                        with open (issues, "w") as resolved:
+                            json.dump(the_vendor_issue, resolved)
+
+            elif super_user_choice == 8:
+                # edit vendor
+                pass
+            elif super_user_choice == 9:
+            # remove a user
+                pass
+            
+            elif super_user_choice == 10:
                 # change password
                 old_password = getpass.getpass("Enter the old password: ")
                 new_password = getpass.getpass("Enter your new password: ")
@@ -186,7 +223,7 @@ def super_user_login ():
                     print("You have successfully changed your password.")
 
             # Check issues
-            elif super_user_choice == 8:
+            elif super_user_choice == 11:
                 with open(issues) as fix_issues:
                     all_the_issues = json.load(fix_issues)
                 if len(all_the_issues) != 0:

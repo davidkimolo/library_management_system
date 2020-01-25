@@ -134,10 +134,18 @@ while (True):
     elif choice == 3:
         with open (vendor_files) as vendor_data:
             all_vendor = json.load(vendor_data)
-        
+        # checking is there is an available vendor
         if len(all_vendor) < 3:
             print("There is no vendor available!")
             # send an issue message to super user
+            vendor_issue = ["No vendor found. Please create a vendor."]
+            with open(issues) as available_issues:
+                get_issues = json.load(available_issues)
+            with open(issues, "w") as submit_issue:
+                vendor_issue += get_issues
+                json.dump(vendor_issue, submit_issue)
+
+        # assigning variables once a vendor is available
         elif len(all_vendor) == 3:
             vendor_name = all_vendor[0]
             vendor_location =  all_vendor[1]
