@@ -206,7 +206,19 @@ def super_user_login ():
                 pass
             elif super_user_choice == 9:
             # remove a user
-                pass
+                with open(vendor_files) as check_vendor:
+                    vendor_status = json.load(check_vendor)
+                    #checking if there is an existing vendor
+                if len(vendor_status) == 3:
+                    #remove the vendor
+                    print("Deleting vendor....")
+                    empty_vendor = []
+                    with open(vendor_files, "w") as remove_vendor:
+                        #empty_vendor += vendor_status
+                        json.dump(empty_vendor, remove_vendor)
+                elif len(vendor_status) < 3:
+                    print("There is no vendor to be removed!")
+
             
             elif super_user_choice == 10:
                 # change password
