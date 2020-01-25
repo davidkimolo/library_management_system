@@ -4,6 +4,8 @@ from library import Librarian as libr
 
 available_librarian = "files/librarian.json"
 patron_files = "files/patron.json"
+requested_books = "files/requested_books.json"
+librarian_files = "files/librarian.json"
 
 
 # Patron class
@@ -56,12 +58,35 @@ class Patron:
         
     def request(self):
         """ this enables the patron to see book requests """
-        self.librarian_location = input("Enter Librarian location: ")
-        self.librarian_id = input("Enter librarian id: ")
-        self.book_request = input("Enter the book you want to request: ")
-        self.librarian_instance = libr(self.librarian_location, self.librarian_id)
-        self.librarian_instance.requested_book.append(self.book_request)
-        print(f"Your request for  {self.book_request} has been sent.")
+        with open (requested_books) as requested:
+            all_requested = json.load(requested)
+        try:
+            self.book_number = int(input("Enter the number of books you want to request: "))
+        except ValueError:
+            print("Error! Please enter a numerical input.")
+        else:
+            book_count = 0
+            all_requested_books = []
+            while (book_count < self.book_number):
+                self.book_request = input("Enter the book name you want to request: ")
+                all_requested_books.append(self.book_request)
+                # adding books to requested books
+                with open (requested_books,"w") as add_books:
+                    all_requested_books += all_requested
+                    json.dump(all_requested_books, add_books)
+                book_count += 1
+                print("The book has been requested.")
+
+            # loading the librarian data
+            with open (librarian_files) as load_librarian:
+                get_librarian = json.load(load_librarian)
+
+            self.librarian_location = get_librarian[0]
+            self.librarian_id = get_librarian[1]
+            
+            self.librarian_instance = libr(self.librarian_location, self.librarian_id)
+            self.librarian_instance.requested_book.append(self.book_request)
+            print(f"Your request for  {self.book_request} has been sent.")
     
 
     def pay_fine(self):
