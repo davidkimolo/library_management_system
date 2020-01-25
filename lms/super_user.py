@@ -203,7 +203,22 @@ def super_user_login ():
 
             elif super_user_choice == 8:
                 # edit vendor
-                pass
+                with open(vendor_files) as check_available:
+                    availability = json.load(check_available)
+                if len(availability) != 3:
+                    print("There is no vendor. please add vendor first.")
+                elif len(availability) == 3:
+                    # edit user 
+                    vendor_name = input("Enter vendor name: ")
+                    vendor_location = input("Enter vendor location: ")
+                    vendor_id = input("Enter vendor ID: ")
+                    vendor_data = []
+                    with open(vendor_files, "w") as new_vendor:
+                        vendor_data.append(vendor_name)
+                        vendor_data.append(vendor_location)
+                        vendor_data.append(vendor_id)
+                        json.dump(vendor_data, new_vendor)
+ 
             elif super_user_choice == 9:
             # remove a user
                 with open(vendor_files) as check_vendor:
