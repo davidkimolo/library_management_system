@@ -3,6 +3,7 @@ import json
 from library import Library as librr
 
 vendor_file = "files/vendor.json"
+vendor_payment_details = "files/vendor_payment_details.json"
 # Vendor class
 class Vendor():
     """ this is the Vendors class """
@@ -52,13 +53,53 @@ class Vendor():
 
     def payment_details(self):
         """ this shows the payment details where the funds will go """
-        self.bank_name = input("Enter bank name: ")
-        self.account_number = int(input("Enter account number: "))
-        self.branch_location = input("Enter branch location: ")
+        # load the payment file
+        with open(vendor_payment_details) as vendor_pay_details:
+            all_pay_details = json.load(vendor_pay_details)
+        if len(all_pay_details) < 3:
+            all_vendor_payment_details = []
+            self.bank_name = input("Enter bank name: ")
+            all_vendor_payment_details.append(self.bank_name)
+            try:
+                self.account_number = int(input("Enter account number: "))
+            except ValueError:
+                print("Please enter a numerical input!")
+            else:
+                all_vendor_payment_details.append(self.account_number)
+                self.branch_location = input("Enter branch location: ")
+                all_vendor_payment_details.append(self.branch_location)
 
-        print("Payment will be made to")
-        print(f"Account number:\t {self.account_number}")
-        print(f"Bank name:\t {self.bank_name}")
-        print(f"Bank branch:\t {self.branch_location}")
+            # saving the payment details to vendor payment file
+            with open(vendor_payment_details, "w") as add_payment_details:
+                json.dump(all_vendor_payment_details, add_payment_details)
+        else:
+            update_choice = input("vendor details already exists do you want to update it? 'y' | 'n'")
+            update_choice = update_choice.lower()
+            if update_choice == "y":
+                all_vendor_payment_details = []
+                self.bank_name = input("Enter bank name: ")
+                all_vendor_payment_details.append(self.bank_name)
+                try:
+                    self.account_number = int(input("Enter account number: "))
+                except ValueError:
+                    print("Please enter a numerical input!")
+                else:
+                    all_vendor_payment_details.append(self.account_number)
+                    self.branch_location = input("Enter branch location: ")
+                    all_vendor_payment_details.append(self.branch_location)
+
+                # saving the payment details to vendor payment file
+                with open(vendor_payment_details, "w") as add_payment_details:
+                    json.dump(all_vendor_payment_details, add_payment_details)
+            elif update_choice == "n":
+                pass
+            else:
+                print("Invalid choice!")
+    
+             
+        # print("Payment will be made to")
+        # print(f"Account number:\t {self.account_number}")
+        # print(f"Bank name:\t {self.bank_name}")
+        # print(f"Bank branch:\t {self.branch_location}")
     
 

@@ -6,6 +6,7 @@ available_books  = "files/available_books.json"
 the_issued_books = "files/issued_books.json"
 super_login = "files/super_user.json"
 librarian_files = "files/librarian.json"
+payment_file = "files/payment.json"
 class Library:
     """ This is the parent Library class """
     def __init__(self, location, librarian_id):
@@ -24,9 +25,7 @@ class Librarian(Library):
         self.name = ""
         self.librarian_id = ""
         self.verified_members = "files/verified_members.json"
-        self.payments = [12.5, 34.9, 98, 31]
         self.requested_book = []
-        self.total_payments  = sum(self.payments)
         self.issue_books = []
         self.issued_book = []
         self.issue_books += self.issued_book
@@ -136,10 +135,12 @@ class Librarian(Library):
     # payment 
     def payment (self):
         """ this will check the payments """ 
-        print(f"The payments are: ")
-        for pay in self.payments:
-            print(f"-> {pay}")
-        print (f"Total number of payment is {self.total_payments}")
+        # load payment data
+        with open(payment_file) as the_payments:
+            all_payments = json.load(the_payments)
+        
+        total_payments = sum(all_payments)
+        print (f"Total number of payment is {total_payments}")
 
 # Books_database class
 class Books_database(Librarian):
