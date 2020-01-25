@@ -10,6 +10,7 @@ librarian_files = "files/librarian.json"
 issues = "files/issues.json"
 patron_files = "files/patron.json"
 issues = "files/issues.json"
+vendor_files = "files/vendor.json"
 
 
 while (True):
@@ -131,6 +132,18 @@ while (True):
 
     # Vendor Choice    
     elif choice == 3:
+        with open (vendor_files) as vendor_data:
+            all_vendor = json.load(vendor_data)
+        
+        if len(all_vendor) < 3:
+            print("There is no vendor available!")
+            # send an issue message to super user
+        elif len(all_vendor) == 3:
+            vendor_name = all_vendor[0]
+            vendor_location =  all_vendor[1]
+            vendor_id = all_vendor[2]
+
+            
         print(" 1. To search for a book \n 2. Supply books \n 3. Payment details")
 
         # handling ValueError
@@ -139,7 +152,8 @@ while (True):
         except ValueError:
             print("Error! Please enter a numerical input")
         else:
-            vendor_instance = vnd.Vendor()
+            vendor_instance = vnd.Vendor(vendor_name, vendor_location, vendor_id)
+            print(f"You are logged in as '{vendor_name}'")
             if vendor_choice == 1:
                 vendor_instance.search()
             elif vendor_choice == 2:

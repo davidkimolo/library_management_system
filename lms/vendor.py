@@ -1,15 +1,20 @@
 #imports
 import json
 from library import Library as librr
+
+vendor_file = "files/vendor.json"
 # Vendor class
-class Vendor:
+class Vendor():
     """ this is the Vendors class """
-    def __init__(self):
+    def __init__(self, vendor_name, vendor_location, vendor_id):
         """ this are the attributes of the Vendor class """
         self. book_names = "files/available_books.json" 
         self.book_price = 0
         self.book_type = ""
-    
+        self.vendor_name = vendor_name
+        self.vendor_location = vendor_location
+        self.vendor_id = vendor_id
+
     def search(self):
         """ This searches for books """
         self.book_name = input("Enter a book you want to search: ")
