@@ -8,6 +8,7 @@ vendor_payment_details = "files/vendor_payment_details.json"
 requested_books = "files/requested_books.json"
 librarian_data = "files/librarian.json"
 issue = "files/issues.json"
+vendor_books = "files/vendor_books.json"
 # Vendor class
 class Vendor():
     """ this is the Vendors class """
@@ -62,18 +63,6 @@ class Vendor():
             print ("This are the requested books: ")
             for book_name in count.items():
                 print(f"-> {book_name}")
-            # display all the books with the number of times requested
-            # count_books = 0
-            # while (count_books < len(load_requested)):
-            #     list_of_requested_times = []
-            #     all_books_request = load_requested.count(load_requested[count_books])
-            #     list_of_requested_times.append(all_books_request)
-            #     count_books += 1
-            #     print(set(list_of_requested_times))
-            # for requested_book in set(load_requested):
-            #     print(f"-> {requested_book} has been requested {requested_book.count(requested_book)} times.")
-
-
         else:
             # sending missing librarian issue to super user 
             no_librarian_issue = ["Librarian does not exist. Please create one."]
@@ -135,8 +124,25 @@ class Vendor():
                 print("Cancelling update...")
             else:
                 print("Invalid choice!")
-    
-    
+    def add_books(self):
+        """ this adds books in the vendor inventory"""
+        number_of_books = int(input("Enter the number of books you want to add: "))
+        book_adder = 0
+        added_books = []
+        while (book_adder < number_of_books):
+            add_book = input("Enter book name: ")
+            added_books.append(add_book)
+            book_adder += 1
+        #loading the vendor books file
+        with open(vendor_books) as the_vendor_books:
+            all_vendor_books = json.load(the_vendor_books)
+
+        # adding books to vendor books file
+        with open (vendor_books, "w") as add_books:
+            added_books += all_vendor_books
+            json.dump(added_books, add_books)
+            
+
         # print("Payment will be made to")
         # print(f"Account number:\t {self.account_number}")
         # print(f"Bank name:\t {self.bank_name}")

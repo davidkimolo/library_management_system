@@ -152,7 +152,7 @@ while (True):
             vendor_id = all_vendor[2]
 
             
-        print(" 1. To search for a book \n 2. Supply books \n 3. Payment details")
+        print(" 1. To search for a book \n 2. Supply books \n 3. Add books to inventory \n 4. Payment details")
 
         # handling ValueError
         try:
@@ -167,6 +167,8 @@ while (True):
             elif vendor_choice == 2:
                 vendor_instance.supply_book()
             elif vendor_choice == 3:
+                vendor_instance.add_books()
+            elif vendor_choice == 4:
                 vendor_instance.payment_details()
             else:
                 print("Please enter the corrent number option")
