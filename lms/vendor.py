@@ -1,6 +1,7 @@
 #imports
 import json
 from library import Library as librr
+import collections
 
 vendor_file = "files/vendor.json"
 vendor_payment_details = "files/vendor_payment_details.json"
@@ -50,11 +51,29 @@ class Vendor():
             self.supply_to = librr(self.library_location, self.librarian_id)
             print(f"You have loaded the library in '{self.library_location}' and you are dealing with librarian of ID '{self.librarian_id}'' ")
             # to do check more conditions
-            self.number_of_supply_books = int(input("How many books are you supplying: "))
-            if self.number_of_supply_books <= len(self.book_names):
-                print(f"{self.number_of_supply_books} have been send to {self.supply_to.location} location to the librarian with the ID {self.librarian_id}") 
-            else:
-                print(f"Please enter books that are not higher than {len(self.book_names)}")
+            # load and display the books we have to supply (requested books)
+
+            with open (requested_books) as check_requested:
+                load_requested = json.load(check_requested)
+            count = collections.Counter()
+
+            for requested_book in load_requested:
+                count[requested_book] +=1
+            print ("This are the requested books: ")
+            for book_name in count.items():
+                print(f"-> {book_name}")
+            # display all the books with the number of times requested
+            # count_books = 0
+            # while (count_books < len(load_requested)):
+            #     list_of_requested_times = []
+            #     all_books_request = load_requested.count(load_requested[count_books])
+            #     list_of_requested_times.append(all_books_request)
+            #     count_books += 1
+            #     print(set(list_of_requested_times))
+            # for requested_book in set(load_requested):
+            #     print(f"-> {requested_book} has been requested {requested_book.count(requested_book)} times.")
+
+
         else:
             # sending missing librarian issue to super user 
             no_librarian_issue = ["Librarian does not exist. Please create one."]
@@ -63,7 +82,8 @@ class Vendor():
                 load_issue_file = json.load(submit_issue)
             #checking if the issue already exists
             if missing_librarian_checker in load_issue_file:
-                print("The issue was already submitted!")
+                
+                print("Librarian does not exist. The issue was already submitted!")
             else:
                 # writting the issue to file
                 print("Librarian does not exist. Sending issue to Super User...")
@@ -116,7 +136,7 @@ class Vendor():
             else:
                 print("Invalid choice!")
     
-             
+    
         # print("Payment will be made to")
         # print(f"Account number:\t {self.account_number}")
         # print(f"Bank name:\t {self.bank_name}")
