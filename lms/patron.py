@@ -76,6 +76,7 @@ class Patron:
                     json.dump(all_requested_books, add_books)
                 book_count += 1
                 print("The book has been requested.")
+                
 
             # loading the librarian data
             with open (librarian_files) as load_librarian:

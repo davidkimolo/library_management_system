@@ -63,6 +63,15 @@ class Vendor():
             print ("This are the requested books: ")
             for book_name in count.items():
                 print(f"-> {book_name}")
+            print("This are the books available:")
+            with open(vendor_books) as available_vendor_books:
+                the_available_vendor_books = json.load(available_vendor_books)
+            book_counter = collections.Counter()
+
+            for checking_available_books in the_available_vendor_books:
+                book_counter[checking_available_books] += 1
+            for vendor_available_book in book_counter.items():
+                print(f"-> {vendor_available_book}")
         else:
             # sending missing librarian issue to super user 
             no_librarian_issue = ["Librarian does not exist. Please create one."]
