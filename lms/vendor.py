@@ -4,6 +4,9 @@ from library import Library as librr
 
 vendor_file = "files/vendor.json"
 vendor_payment_details = "files/vendor_payment_details.json"
+requested_books = "files/requested_books.json"
+librarian_data = "files/librarian.json"
+issue = "files/issues.json"
 # Vendor class
 class Vendor():
     """ this is the Vendors class """
@@ -37,19 +40,36 @@ class Vendor():
 
     def supply_book(self):
         """ This shows the books that need to be supplied as requested by patron"""
-        self.library_location = input("Enter the library location: ")
-        try:
-            self.librarian_id = int(input("Enter the librarian ID: "))
-        except ValueError:
-            print("ValueError! Please enter a numerical value for Librarian ID")
-        else:
+        # load librarylocation and librarian ID
+        with open (librarian_data) as all_library_data:
+            library_data = json.load(all_library_data)
+        
+        if len(library_data) == 2:
+            self.library_location = library_data[0]
+            self.librarian_id = library_data[1]
             self.supply_to = librr(self.library_location, self.librarian_id)
+            print(f"You have loaded the library in '{self.library_location}' and you are dealing with librarian of ID '{self.librarian_id}'' ")
             # to do check more conditions
             self.number_of_supply_books = int(input("How many books are you supplying: "))
             if self.number_of_supply_books <= len(self.book_names):
                 print(f"{self.number_of_supply_books} have been send to {self.supply_to.location} location to the librarian with the ID {self.librarian_id}") 
             else:
                 print(f"Please enter books that are not higher than {len(self.book_names)}")
+        else:
+            # sending missing librarian issue to super user 
+            no_librarian_issue = ["Librarian does not exist. Please create one."]
+            missing_librarian_checker = no_librarian_issue[0]
+            with open(issue) as submit_issue:
+                load_issue_file = json.load(submit_issue)
+            #checking if the issue already exists
+            if missing_librarian_checker in load_issue_file:
+                print("The issue was already submitted!")
+            else:
+                # writting the issue to file
+                print("Librarian does not exist. Sending issue to Super User...")
+                with open(issue, "w") as submiting_issue:
+                    no_librarian_issue += load_issue_file
+                    json.dump(no_librarian_issue, submiting_issue)
 
     def payment_details(self):
         """ this shows the payment details where the funds will go """
@@ -73,7 +93,7 @@ class Vendor():
             with open(vendor_payment_details, "w") as add_payment_details:
                 json.dump(all_vendor_payment_details, add_payment_details)
         else:
-            update_choice = input("vendor details already exists do you want to update it? 'y' | 'n'")
+            update_choice = input("vendor details already exists do you want to update it? 'y' | 'n': ")
             update_choice = update_choice.lower()
             if update_choice == "y":
                 all_vendor_payment_details = []
@@ -92,7 +112,7 @@ class Vendor():
                 with open(vendor_payment_details, "w") as add_payment_details:
                     json.dump(all_vendor_payment_details, add_payment_details)
             elif update_choice == "n":
-                pass
+                print("Cancelling update...")
             else:
                 print("Invalid choice!")
     

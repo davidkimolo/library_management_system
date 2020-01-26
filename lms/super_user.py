@@ -65,6 +65,8 @@ def super_user_login ():
                         librarian_data.append(create_librarian_location)
                         librarian_data.append(create_librarian_id)
                         json.dump(librarian_data, the_lib_files)
+                        
+                        # checking missing librarian 
                         with open(issues) as missing_librarian:
                             none_librarian = json.load(missing_librarian)
                         if no_librarian_issue in none_librarian:
