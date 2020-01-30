@@ -9,11 +9,12 @@ requested_books = "files/requested_books.json"
 librarian_data = "files/librarian.json"
 issue = "files/issues.json"
 vendor_books = "files/vendor_books.json"
+supplied_books = "files/supplied_books.json"
 # Vendor class
 class Vendor():
     """ this is the Vendors class """
     def __init__(self, vendor_name, vendor_location, vendor_id):
-        """ this are the attributes of the Vendor class """
+        """ these are the attributes of the Vendor class """
         self. book_names = "files/available_books.json" 
         self.book_price = 0
         self.book_type = ""
@@ -35,7 +36,7 @@ class Vendor():
                 print("{} is available".format(self.book_name))
             else:
                 print("{} is not available!".format(self.book_name))
-                print("This are the available books: ")
+                print("These are the available books: ")
                 for self.books in all_the_books:
                     self.books = self.books.lower()
                     print("-> {}".format(self.books))
@@ -60,10 +61,10 @@ class Vendor():
 
             for requested_book in load_requested:
                 count[requested_book] +=1
-            print ("This are the requested books: ")
+            print ("These are the requested books: ")
             for book_name in count.items():
-                print(f"-> {book_name}")
-            print("This are the books available:")
+                print(f"-> {list(book_name)}")
+            print("These are the books available:")
             with open(vendor_books) as available_vendor_books:
                 the_available_vendor_books = json.load(available_vendor_books)
             book_counter = collections.Counter()
@@ -71,7 +72,37 @@ class Vendor():
             for checking_available_books in the_available_vendor_books:
                 book_counter[checking_available_books] += 1
             for vendor_available_book in book_counter.items():
-                print(f"-> {vendor_available_book}")
+                print(f"-> {list(vendor_available_book)}")
+        
+        
+        # checking if same books are on both requested books and available books
+            for check_books in  load_requested:
+                if check_books in  the_available_vendor_books:
+                    
+                    # load it into an array
+                    supply_book_store = []
+                    supply_book_store.append(check_books)
+                    # open the supply file
+                    with open(supplied_books) as the_supplied_books:
+                        view_supplied_books = json.load(the_supplied_books)
+                    # check how many books are on available books
+
+                    print(f" the total number of {check_books} is : {the_available_vendor_books.count(check_books)}")
+                    # add book if available to the supplies
+            
+                    with open (supplied_books, "w") as add_new_book:
+                        view_supplied_books += supply_book_store
+                        json.dump(view_supplied_books, add_new_book)
+                    # remove the book that has been sent to supplied file
+                    with open (vendor_books) as all_the_vendor_books:
+                        load_vendor_books = json.load(all_the_vendor_books)
+                        if check_books in load_vendor_books:
+                            load_vendor_books.remove(check_books)
+                    with open(vendor_books, "w") as remove_vendor_book:
+                            json.dump(load_vendor_books, remove_vendor_book)
+                    # supply books
+                else:
+                    print(f"{check_books} not found")
         else:
             # sending missing librarian issue to super user 
             no_librarian_issue = ["Librarian does not exist. Please create one."]
